@@ -26,10 +26,10 @@
 //    imageView.center = CGPointMake(CGRectGetMidX(self.transformView.contentView.bounds),
 //                                   CGRectGetMidY(self.transformView.contentView.bounds));
     imageView.backgroundColor = [UIColor grayColor];
-    imageView.frame = self.view.bounds;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-//    imageView.layer.borderColor = [UIColor systemPinkColor].CGColor;
-//    imageView.layer.borderWidth = 1.f;
+    imageView.layer.borderColor = [UIColor systemPinkColor].CGColor;
+    imageView.layer.borderWidth = 1.f;
+    imageView.clipsToBounds = YES;
     _imageView = imageView;
     
     [self.transformView.contentView addSubview:imageView];
@@ -46,10 +46,18 @@
     
 //    [self meshBuldgeAtPoint:imageView.center];
     
-    UIView *seperatedView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 5.0 * 2, 0, self.view.bounds.size.width / 5.0, self.view.bounds.size.height)];
-    seperatedView.backgroundColor = [UIColor colorWithRed:100/255.0 green:100/255.0 blue:100/255.0 alpha:0.5];
-    seperatedView.userInteractionEnabled = NO;
-    [self.view addSubview:seperatedView];
+//    NSInteger columns = 3;
+//    for (NSInteger i = 0; i < columns; i ++) {
+//        UIView *seperatedView = [[UIView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width / columns) * i, 0, self.view.bounds.size.width / columns, self.view.bounds.size.height)];
+//        seperatedView.backgroundColor = [UIColor colorWithRed:arc4random() % 255 / 255.0
+//                                                        green:arc4random() % 255 / 255.0
+//                                                         blue:arc4random() % 255 / 255.0
+//                                                        alpha:0.1];
+//        seperatedView.layer.borderColor = [UIColor grayColor].CGColor;
+//        seperatedView.layer.borderWidth = 0.5f;
+//        seperatedView.userInteractionEnabled = NO;
+//        [self.view addSubview:seperatedView];
+//    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -79,11 +87,12 @@
 //    self.transformView.meshTransform = [BCMutableMeshTransform doublePanel];
 }
 
-//- (void)viewSafeAreaInsetsDidChange {
-//    [super viewSafeAreaInsetsDidChange];
-//
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+
 //    _imageView.center = self.view.center;
-//}
+    _imageView.frame = self.transformView.contentView.bounds;
+}
 
 /*
 #pragma mark - Navigation

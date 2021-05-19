@@ -154,8 +154,8 @@
 
 + (instancetype)doublePanelSeperated
 {
-    NSUInteger columnsOfFaces = 5;
-    NSUInteger rowsOfFaces = 20;
+    NSUInteger columnsOfFaces = 3;
+    NSUInteger rowsOfFaces = 1;
     
     NSParameterAssert(rowsOfFaces >= 1);
     NSParameterAssert(columnsOfFaces >= 1);
@@ -169,8 +169,17 @@
     for (int row = 0; row <= rowsOfFaces; row++) {
         
         for (int col = 0; col <= columnsOfFaces; col++) {
+            //CGFloat x = (CGFloat)col/(columnsOfFaces-1);
+            //CGFloat y = (CGFloat)row/(rowsOfFaces);
+            
             CGFloat x,y;
-            if (col < columnsOfFaces / 2) {
+            if (col == 0) {
+                x = 0;
+                y = (CGFloat)row/(rowsOfFaces);
+            } else if (col == columnsOfFaces) {
+                x = 1;
+                y = (CGFloat)row/(rowsOfFaces);
+            } else if (col < columnsOfFaces / 2) {
                 x = (CGFloat)col/(columnsOfFaces - 1);
                 y = (CGFloat)row/(rowsOfFaces);
             } else if (col == columnsOfFaces / 2 || col == columnsOfFaces / 2 + 1){
@@ -181,6 +190,7 @@
                 y = (CGFloat)row/(rowsOfFaces);
             }
             
+            NSLog(@"from==x:%f,y:%f", x, y);
             
             BCMeshVertex vertex = {
                 .from = {x, y},
@@ -208,36 +218,75 @@
     
     transform.depthNormalization = kBCDepthNormalizationAverage;
     
+    CGFloat gapWidth = 0.05;
+    
     [transform mapVerticesUsingBlock:^BCMeshVertex(BCMeshVertex vertex, NSUInteger vertexIndex) {
-//        NSInteger row = vertexIndex / (columnsOfFaces + 1);
-        NSInteger column = vertexIndex % (columnsOfFaces + 1);
-//        NSLog(@"row:%ld,column:%ld", row, column);
+        NSInteger row = vertexIndex / (columnsOfFaces + 1);// 0 ~ 20 (rowsOfFaces)
+        NSInteger column = vertexIndex % (columnsOfFaces + 1);// 0 ~ 11 (columnsOfFaces)
+        
+        CGFloat offsetX = 0.f;
+        CGFloat offsetY = 0.f;
+        CGFloat zPositon = 0.f;
+        
+        if (row == 0 && column == columnsOfFaces / 2) {
+            offsetX = - gapWidth / 2.0;
+            offsetY = 0.1;
+//            zPositon = 0.1;
+        } else if (row == 0 && column == columnsOfFaces / 2 + 1) {
+            offsetX = gapWidth / 2.0;
+            offsetY = 0.1;
+//            zPositon = 0.1;
+        } else if (row == rowsOfFaces && column == columnsOfFaces / 2) {
+            offsetX = - gapWidth / 2.0;
+            offsetY = -0.1;
+//            zPositon = 0.1;
+        } else if (row == rowsOfFaces && column == columnsOfFaces / 2 + 1) {
+            offsetX = gapWidth / 2.0;
+            offsetY = -0.1;
+//            zPositon = 0.1;
+        }
+        
+        
 //        if (row < rowsOfFaces / 2) {
 //            if (column < columnsOfFaces / 2) {
-//                vertex.to.y = vertex.from.y + 0.1 / (columnsOfFaces - 1) * column;
+//                offsetY = 0.1 / (columnsOfFaces - 1) * 2 * column;
 //            } else if (column == columnsOfFaces / 2 || column == columnsOfFaces / 2 + 1){
-//                vertex.to.y = vertex.from.y + 0.1 / (columnsOfFaces - 1) * columnsOfFaces / 2.0;
+//                offsetY = 0.1 / (columnsOfFaces - 1) * 2 * (columnsOfFaces - 1) / 2.0;
 //            } else {
-//                vertex.to.y = vertex.from.y + 0.1 / (columnsOfFaces - 1) * (columnsOfFaces - column - 1);
+//                offsetY = 0.1 / (columnsOfFaces - 1) * 2 * (columnsOfFaces - column);
 //            }
-//        } else if (row == rowsOfFaces / 2) {
-//            vertex.to.y = vertex.from.y;
-//        } else if (row > rowsOfFaces / 2) {
+//        }
+//        else if (row == rowsOfFaces / 2) {
+//            offsetY = 0.f;
+//        }
+//        else if (row > rowsOfFaces / 2) {
 //            if (column < columnsOfFaces / 2) {
-//                vertex.to.y = vertex.from.y - 0.1 / (columnsOfFaces - 1) * column;
+//                offsetY = - 0.1 / (columnsOfFaces - 1) * 2 * column;
 //            } else if (column == columnsOfFaces / 2 || column == columnsOfFaces / 2 + 1){
-//                vertex.to.y = vertex.from.y - 0.1 / (columnsOfFaces - 1) * columnsOfFaces / 2.0;
+//                offsetY = - 0.1 / (columnsOfFaces - 1) * 2 * columnsOfFaces / 2.0;
 //            } else {
-//                vertex.to.y = vertex.from.y - 0.1 / (columnsOfFaces - 1) * (columnsOfFaces - column - 1);
+//                offsetY = - 0.1 / (columnsOfFaces - 1) * 2 * (columnsOfFaces - column);
 //            }
 //        }
         
-        if (column <= columnsOfFaces / 2 && column > 0) {
-            vertex.to.x = vertex.from.x - 1.0 / columnsOfFaces / 2.0;
-        }
-        if (column >= columnsOfFaces / 2 + 1 && column < columnsOfFaces) {
-            vertex.to.x = vertex.from.x + 1.0 / columnsOfFaces / 2.0;
-        }
+        vertex.to.x = vertex.from.x + offsetX;
+        vertex.to.y = vertex.from.y + offsetY;
+        vertex.to.z = zPositon;
+        
+//        CGFloat offsetX = 0.f;
+//        if (column <= columnsOfFaces / 2 && column > 0) {
+//            offsetX = - 1.0 / (columnsOfFaces - 1) / 2.0;
+//        }
+//        if (column >= columnsOfFaces / 2 + 1 && column < columnsOfFaces) {
+//            offsetX = 1.0 / (columnsOfFaces - 1) / 2.0;
+//        }
+//        vertex.to.x = vertex.from.x + offsetX;
+        
+//        NSLog(@"replaced==row:%ld,column:%ld==offsetX:%f,offsetY,%f", row, column, offsetX, offsetY);
+        
+        NSLog(@"position==row:%ld,column:%ld", row, column);
+        NSLog(@"vertex.from==x:%f,y:%f", vertex.from.x, vertex.from.y);
+        NSLog(@"vertex.to==x:%f,y:%f", vertex.to.x, vertex.to.y);
         return vertex;
     }];
     return transform;
