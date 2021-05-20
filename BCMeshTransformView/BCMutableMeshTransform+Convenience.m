@@ -225,19 +225,19 @@ const CGFloat kDoublePhotoPanelGapWidth = 0.1f;
         if (row <= rowsOfFaces / 2 - 1 && column == columnsOfFaces / 2) {
             offsetX = - kDoublePhotoPanelGapWidth / 2.0;
             offsetY = 0.1 /  (rowsOfFaces / 2) * (rowsOfFaces / 2 - row);
-            zPositon = 0.1;
+//            zPositon = 0.1;
         } else if (row <= rowsOfFaces / 2 - 1 && column == columnsOfFaces / 2 + 1) {
             offsetX = kDoublePhotoPanelGapWidth / 2.0;
             offsetY = 0.1 /  (rowsOfFaces / 2) * (rowsOfFaces / 2 - row);
-            zPositon = 0.1;
+//            zPositon = 0.1;
         } else if (row >= rowsOfFaces / 2 && column == columnsOfFaces / 2) {
             offsetX = - kDoublePhotoPanelGapWidth / 2.0;
             offsetY = - 0.1 /  (rowsOfFaces / 2) * (row - rowsOfFaces / 2);
-            zPositon = -0.1;
+//            zPositon = -0.1;
         } else if (row >= rowsOfFaces / 2 && column == columnsOfFaces / 2 + 1) {
             offsetX = kDoublePhotoPanelGapWidth / 2.0;
             offsetY = - 0.1 /  (rowsOfFaces / 2) * (row - rowsOfFaces / 2);
-            zPositon = -0.1;
+//            zPositon = -0.1;
         }
         
         vertex.to.x = vertex.from.x + offsetX;
