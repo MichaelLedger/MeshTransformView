@@ -22,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"picture@2x.jpg"]];//circle.jpg、picture@2x.jpg
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"strawberry.jpeg"]];//circle.jpg、picture@2x.jpg、strawberry.jpeg
 //    imageView.center = CGPointMake(CGRectGetMidX(self.transformView.contentView.bounds),
 //                                   CGRectGetMidY(self.transformView.contentView.bounds));
     imageView.backgroundColor = [UIColor grayColor];
@@ -58,6 +58,16 @@
 //        seperatedView.userInteractionEnabled = NO;
 //        [self.view addSubview:seperatedView];
 //    }
+    
+    UIView *seperatedView = [[UIView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width * (1 - kDoublePhotoPanelGapWidth)) / 2.0, 0, self.view.bounds.size.width * kDoublePhotoPanelGapWidth, self.view.bounds.size.height)];
+    seperatedView.backgroundColor = [UIColor colorWithRed:arc4random() % 255 / 255.0
+                                                    green:arc4random() % 255 / 255.0
+                                                     blue:arc4random() % 255 / 255.0
+                                                    alpha:0.5];
+    seperatedView.layer.borderColor = [UIColor grayColor].CGColor;
+    seperatedView.layer.borderWidth = 0.5f;
+    seperatedView.userInteractionEnabled = NO;
+    [self.view addSubview:seperatedView];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

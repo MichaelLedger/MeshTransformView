@@ -8,6 +8,8 @@
 
 #import "BCMeshTransform.h"
 
+extern const CGFloat kDoublePhotoPanelGapWidth;
+
 @interface BCMutableMeshTransform (Convenience)
 
 // Creates rectangular mesh transform with facesRows by facesColumns faces and equally spread vertices.

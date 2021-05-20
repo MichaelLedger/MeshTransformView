@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6755C4692655E6D800D00E37 /* strawberry.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6755C4682655E6D800D00E37 /* strawberry.jpeg */; };
 		6769DB49263AAC09000A3554 /* BCSplitSkewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6769DB48263AAC09000A3554 /* BCSplitSkewViewController.m */; };
 		67E3EB4A2643E6F500F978C3 /* circle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67E3EB492643E6F500F978C3 /* circle.jpg */; };
 		67E3EC232644D1D300F978C3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E3EC222644D1D300F978C3 /* Launch Screen.storyboard */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6755C4682655E6D800D00E37 /* strawberry.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = strawberry.jpeg; sourceTree = "<group>"; };
 		6769DB47263AAC09000A3554 /* BCSplitSkewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCSplitSkewViewController.h; sourceTree = "<group>"; };
 		6769DB48263AAC09000A3554 /* BCSplitSkewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCSplitSkewViewController.m; sourceTree = "<group>"; };
 		67E3EB492643E6F500F978C3 /* circle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = circle.jpg; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				9819A64719200E6E00769705 /* BCMeshTransform+DemoTransforms.h */,
 				9819A64819200E6E00769705 /* BCMeshTransform+DemoTransforms.m */,
 				9819A64519200BC400769705 /* picture@2x.jpg */,
+				6755C4682655E6D800D00E37 /* strawberry.jpeg */,
 				67E3EB492643E6F500F978C3 /* circle.jpg */,
 				9819A66D192010DB00769705 /* Images.xcassets */,
 				67E3EC222644D1D300F978C3 /* Launch Screen.storyboard */,
@@ -265,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6755C4692655E6D800D00E37 /* strawberry.jpeg in Resources */,
 				9819A6321920058300769705 /* BCMeshShader.vsh in Resources */,
 				9819A6301920058300769705 /* BCMeshShader.fsh in Resources */,
 				9819A66E192010DB00769705 /* Images.xcassets in Resources */,
