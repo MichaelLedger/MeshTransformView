@@ -61,7 +61,9 @@
     CATransform3D perspective = CATransform3DIdentity;
     perspective.m34 = -1.0/2000.0;
     
-    self.transformView.supplementaryTransform = perspective;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+        self.transformView.supplementaryTransform = perspective;
+//    });
     [self setIdleTransform];
     
     

@@ -42,7 +42,9 @@
     // we don't want any shading on this one
     self.transformView.diffuseLightFactor = 0.0;
     
-    self.transformView.meshTransform = [BCMutableMeshTransform doublePanelSeperated];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.transformView.meshTransform = [BCMutableMeshTransform doublePanelSeperated];
+    });
     
 //    [self meshBuldgeAtPoint:imageView.center];
     
