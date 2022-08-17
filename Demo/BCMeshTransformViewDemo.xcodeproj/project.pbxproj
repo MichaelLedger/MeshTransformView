@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6755C4692655E6D800D00E37 /* strawberry.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6755C4682655E6D800D00E37 /* strawberry.jpeg */; };
 		6769DB49263AAC09000A3554 /* BCSplitSkewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6769DB48263AAC09000A3554 /* BCSplitSkewViewController.m */; };
+		67BDA22E28ACD97C009CE82E /* MLMeshMetalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BDA22D28ACD97C009CE82E /* MLMeshMetalRender.m */; };
+		67BDA23328ACE21F009CE82E /* MLMeshBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BDA23228ACE21F009CE82E /* MLMeshBuffer.m */; };
 		67E3EB4A2643E6F500F978C3 /* circle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67E3EB492643E6F500F978C3 /* circle.jpg */; };
 		67E3EC232644D1D300F978C3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E3EC222644D1D300F978C3 /* Launch Screen.storyboard */; };
 		9819A5DA1920020400769705 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9819A5D91920020400769705 /* Foundation.framework */; };
@@ -43,6 +45,12 @@
 		6755C4682655E6D800D00E37 /* strawberry.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = strawberry.jpeg; sourceTree = "<group>"; };
 		6769DB47263AAC09000A3554 /* BCSplitSkewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCSplitSkewViewController.h; sourceTree = "<group>"; };
 		6769DB48263AAC09000A3554 /* BCSplitSkewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCSplitSkewViewController.m; sourceTree = "<group>"; };
+		67BDA22A28ACD522009CE82E /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		67BDA22C28ACD97C009CE82E /* MLMeshMetalRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLMeshMetalRender.h; sourceTree = "<group>"; };
+		67BDA22D28ACD97C009CE82E /* MLMeshMetalRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLMeshMetalRender.m; sourceTree = "<group>"; };
+		67BDA23128ACE21F009CE82E /* MLMeshBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLMeshBuffer.h; sourceTree = "<group>"; };
+		67BDA23228ACE21F009CE82E /* MLMeshBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLMeshBuffer.m; sourceTree = "<group>"; };
+		67BDA23428ACE5A7009CE82E /* Convert.MD */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Convert.MD; sourceTree = "<group>"; };
 		67E3EB492643E6F500F978C3 /* circle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = circle.jpg; sourceTree = "<group>"; };
 		67E3EC222644D1D300F978C3 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9819A5D61920020400769705 /* BCMeshTransformViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BCMeshTransformViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +116,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67BDA23028ACE191009CE82E /* MLMeshTransformView */ = {
+			isa = PBXGroup;
+			children = (
+				67BDA23428ACE5A7009CE82E /* Convert.MD */,
+				67BDA23128ACE21F009CE82E /* MLMeshBuffer.h */,
+				67BDA23228ACE21F009CE82E /* MLMeshBuffer.m */,
+				67BDA22C28ACD97C009CE82E /* MLMeshMetalRender.h */,
+				67BDA22D28ACD97C009CE82E /* MLMeshMetalRender.m */,
+			);
+			path = MLMeshTransformView;
+			sourceTree = "<group>";
+		};
 		9819A5CD1920020400769705 = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +148,7 @@
 		9819A5D81920020400769705 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67BDA22A28ACD522009CE82E /* MetalKit.framework */,
 				9819A67219211DCA00769705 /* OpenGLES.framework */,
 				9819A5D91920020400769705 /* Foundation.framework */,
 				9819A5DB1920020400769705 /* CoreGraphics.framework */,
@@ -140,6 +161,7 @@
 		9819A5DF1920020400769705 /* BCMeshTransformViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				67BDA23028ACE191009CE82E /* MLMeshTransformView */,
 				9819A6191920054300769705 /* BCMeshTransformView */,
 				9819A64A19200E7000769705 /* Demo View Controllers */,
 				9819A5E81920020400769705 /* BCAppDelegate.h */,
@@ -240,9 +262,14 @@
 		9819A5CE1920020400769705 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = BC;
+				CLASSPREFIX = MLMesh;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Bartosz Ciechanowski";
+				TargetAttributes = {
+					9819A5D51920020400769705 = {
+						DevelopmentTeam = ZA2PCCN27W;
+					};
+				};
 			};
 			buildConfigurationList = 9819A5D11920020400769705 /* Build configuration list for PBXProject "BCMeshTransformViewDemo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -286,6 +313,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67BDA22E28ACD97C009CE82E /* MLMeshMetalRender.m in Sources */,
+				67BDA23328ACE21F009CE82E /* MLMeshBuffer.m in Sources */,
 				9819A6351920058300769705 /* BCMeshTransform+Interpolation.m in Sources */,
 				9819A6341920058300769705 /* BCMeshTransform.mm in Sources */,
 				9819A64919200E6E00769705 /* BCMeshTransform+DemoTransforms.m in Sources */,
@@ -398,6 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = ZA2PCCN27W;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BCMeshTransformViewDemo/BCMeshTransformViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "BCMeshTransformViewDemo/BCMeshTransformViewDemo-Info.plist";
@@ -412,6 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = ZA2PCCN27W;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BCMeshTransformViewDemo/BCMeshTransformViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "BCMeshTransformViewDemo/BCMeshTransformViewDemo-Info.plist";

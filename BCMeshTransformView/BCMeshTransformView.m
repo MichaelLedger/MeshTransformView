@@ -20,6 +20,8 @@
 
 #import "BCMutableMeshTransform+Convenience.h"
 
+#import "MLMeshMetalRender.h"
+
 @interface BCMeshTransformView() <GLKViewDelegate>
 
 @property (nonatomic, strong) GLKView *glkView;
@@ -36,6 +38,10 @@
 @property (nonatomic, strong) UIView *dummyAnimationView;
 
 @property (nonatomic) BOOL pendingContentRendering;
+
+// Use Metal (MTKView) instead of OpenGL (GLKView).
+@property (nonatomic, strong) MTKView *mtkView;
+@property (nonatomic, strong) MLMeshMetalRender *render;
 
 @end
 
@@ -71,7 +77,6 @@
     return self;
 }
 
-
 - (void)commonInit
 {
     self.opaque = NO;
@@ -82,7 +87,19 @@
     _glkView.opaque = NO;
     
     [super addSubview:_glkView];
-    
+
+    /*
+    //一个MTLDevice 对象就代表这着一个GPU,通常我们可以调用方法MTLCreateSystemDefaultDevice()来获取代表默认的GPU单个对象.
+    _mtkView = [[MTKView alloc] initWithFrame:self.bounds device:MTLCreateSystemDefaultDevice()];
+    //判断是否设置成功
+    NSAssert(_mtkView.device, @"Metal is not supported on this device");
+    _render = [[MLMeshMetalRender alloc] initWithMetalKitView:_mtkView];
+    _mtkView.delegate = _render;
+    //视图可以根据视图属性上设置帧速率(指定时间来调用drawInMTKView方法--视图需要渲染时调用)
+    _mtkView.preferredFramesPerSecond = 60;
+    [super addSubview:_mtkView];
+    */
+
     _diffuseLightFactor = 1.0f;
     _lightDirection = BCPoint3DMake(0.0, 0.0, 1.0);
     
