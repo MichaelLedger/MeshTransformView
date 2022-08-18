@@ -1,6 +1,6 @@
 //
 //  MLMeshMetalRender.h
-//  BCMeshTransformViewDemo
+//  MLMeshTransformViewDemo
 //
 //  Created by Gavin Xiang on 2022/8/17.
 //  Copyright © 2022 Bartosz Ciechanowski. All rights reserved.

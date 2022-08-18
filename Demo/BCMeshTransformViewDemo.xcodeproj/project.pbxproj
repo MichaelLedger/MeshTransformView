@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		6755C4692655E6D800D00E37 /* strawberry.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6755C4682655E6D800D00E37 /* strawberry.jpeg */; };
 		6769DB49263AAC09000A3554 /* BCSplitSkewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6769DB48263AAC09000A3554 /* BCSplitSkewViewController.m */; };
-		67BDA22E28ACD97C009CE82E /* MLMeshMetalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BDA22D28ACD97C009CE82E /* MLMeshMetalRender.m */; };
-		67BDA23328ACE21F009CE82E /* MLMeshBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BDA23228ACE21F009CE82E /* MLMeshBuffer.m */; };
+		67D520BF28AE19BB00A6DFF6 /* MLMeshMetalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */; };
+		67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520BD28AE19BB00A6DFF6 /* MLMeshBuffer.m */; };
 		67E3EB4A2643E6F500F978C3 /* circle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67E3EB492643E6F500F978C3 /* circle.jpg */; };
 		67E3EC232644D1D300F978C3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E3EC222644D1D300F978C3 /* Launch Screen.storyboard */; };
 		9819A5DA1920020400769705 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9819A5D91920020400769705 /* Foundation.framework */; };
@@ -46,11 +46,13 @@
 		6769DB47263AAC09000A3554 /* BCSplitSkewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCSplitSkewViewController.h; sourceTree = "<group>"; };
 		6769DB48263AAC09000A3554 /* BCSplitSkewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCSplitSkewViewController.m; sourceTree = "<group>"; };
 		67BDA22A28ACD522009CE82E /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
-		67BDA22C28ACD97C009CE82E /* MLMeshMetalRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLMeshMetalRender.h; sourceTree = "<group>"; };
-		67BDA22D28ACD97C009CE82E /* MLMeshMetalRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLMeshMetalRender.m; sourceTree = "<group>"; };
-		67BDA23128ACE21F009CE82E /* MLMeshBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLMeshBuffer.h; sourceTree = "<group>"; };
-		67BDA23228ACE21F009CE82E /* MLMeshBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLMeshBuffer.m; sourceTree = "<group>"; };
-		67BDA23428ACE5A7009CE82E /* Convert.MD */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Convert.MD; sourceTree = "<group>"; };
+		67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshMetalRender.m; sourceTree = "<group>"; };
+		67D520BB28AE19BB00A6DFF6 /* MLMeshBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshBuffer.h; sourceTree = "<group>"; };
+		67D520BC28AE19BB00A6DFF6 /* MLMeshMetalRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshMetalRender.h; sourceTree = "<group>"; };
+		67D520BD28AE19BB00A6DFF6 /* MLMeshBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshBuffer.m; sourceTree = "<group>"; };
+		67D520C228AE1C8D00A6DFF6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		67D520C328AE1E4200A6DFF6 /* MTKVector3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTKVector3.h; sourceTree = "<group>"; };
+		67D520C428AE2D7200A6DFF6 /* mtktypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mtktypes.h; sourceTree = "<group>"; };
 		67E3EB492643E6F500F978C3 /* circle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = circle.jpg; sourceTree = "<group>"; };
 		67E3EC222644D1D300F978C3 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9819A5D61920020400769705 /* BCMeshTransformViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BCMeshTransformViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,16 +118,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		67BDA23028ACE191009CE82E /* MLMeshTransformView */ = {
+		67D520B928AE19BB00A6DFF6 /* MLMeshTransformView */ = {
 			isa = PBXGroup;
 			children = (
-				67BDA23428ACE5A7009CE82E /* Convert.MD */,
-				67BDA23128ACE21F009CE82E /* MLMeshBuffer.h */,
-				67BDA23228ACE21F009CE82E /* MLMeshBuffer.m */,
-				67BDA22C28ACD97C009CE82E /* MLMeshMetalRender.h */,
-				67BDA22D28ACD97C009CE82E /* MLMeshMetalRender.m */,
+				67D520C228AE1C8D00A6DFF6 /* README.md */,
+				67D520C428AE2D7200A6DFF6 /* mtktypes.h */,
+				67D520C328AE1E4200A6DFF6 /* MTKVector3.h */,
+				67D520BB28AE19BB00A6DFF6 /* MLMeshBuffer.h */,
+				67D520BD28AE19BB00A6DFF6 /* MLMeshBuffer.m */,
+				67D520BC28AE19BB00A6DFF6 /* MLMeshMetalRender.h */,
+				67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */,
 			);
-			path = MLMeshTransformView;
+			name = MLMeshTransformView;
+			path = ../../MLMeshTransformView;
 			sourceTree = "<group>";
 		};
 		9819A5CD1920020400769705 = {
@@ -161,7 +166,7 @@
 		9819A5DF1920020400769705 /* BCMeshTransformViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				67BDA23028ACE191009CE82E /* MLMeshTransformView */,
+				67D520B928AE19BB00A6DFF6 /* MLMeshTransformView */,
 				9819A6191920054300769705 /* BCMeshTransformView */,
 				9819A64A19200E7000769705 /* Demo View Controllers */,
 				9819A5E81920020400769705 /* BCAppDelegate.h */,
@@ -313,9 +318,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67BDA22E28ACD97C009CE82E /* MLMeshMetalRender.m in Sources */,
-				67BDA23328ACE21F009CE82E /* MLMeshBuffer.m in Sources */,
 				9819A6351920058300769705 /* BCMeshTransform+Interpolation.m in Sources */,
+				67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */,
 				9819A6341920058300769705 /* BCMeshTransform.mm in Sources */,
 				9819A64919200E6E00769705 /* BCMeshTransform+DemoTransforms.m in Sources */,
 				9819A6371920058300769705 /* BCMeshTransformView.m in Sources */,
@@ -331,6 +335,7 @@
 				9819A63E1920061000769705 /* BCCurtainDemoViewController.m in Sources */,
 				9819A63B192005FC00769705 /* BCZoomDemoViewController.m in Sources */,
 				9819A62F1920058300769705 /* BCMeshContentView.m in Sources */,
+				67D520BF28AE19BB00A6DFF6 /* MLMeshMetalRender.m in Sources */,
 				9819A5EA1920020400769705 /* BCAppDelegate.m in Sources */,
 				9819A6381920058300769705 /* BCMutableMeshTransform+Convenience.m in Sources */,
 			);

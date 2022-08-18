@@ -1,54 +1,48 @@
 //
-//  BCMeshTransformView.m
-//  BCMeshTransformView
+//  MLMeshTransformView.m
+//  MLMeshTransformView
 //
 //  Copyright (c) 2014 Bartosz Ciechanowski. All rights reserved.
 //
 
-#import <GLKit/GLKit.h>
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
+//#import <GLKit/GLKit.h>
+//#import <OpenGLES/ES2/gl.h>
+//#import <OpenGLES/ES2/glext.h>
 
-#import "BCMeshTransformView.h"
-#import "BCMeshContentView.h"
+#import "MLMeshTransformView.h"
+#import "MLMeshContentView.h"
 
-#import "BCMeshShader.h"
-#import "BCMeshBuffer.h"
-#import "BCMeshTexture.h"
+#import "MLMeshBuffer.h"
+#import "MLMeshTexture.h"
 
-#import "BCMeshTransformAnimation.h"
+#import "MLMeshTransformAnimation.h"
 
-#import "BCMutableMeshTransform+Convenience.h"
+#import "MLMutableMeshTransform+Convenience.h"
 
-//#import "MLMeshMetalRender.h"
+#import "MLMeshMetalRender.h"
 
-@interface BCMeshTransformView() <GLKViewDelegate>
+@interface MLMeshTransformView()
 
-@property (nonatomic, strong) GLKView *glkView;
-
-@property (nonatomic, strong) BCMeshShader *shader;
-@property (nonatomic, strong) BCMeshBuffer *buffer;
-@property (nonatomic, strong) BCMeshTexture *texture;
+@property (nonatomic, strong) MLMeshBuffer *buffer;
+@property (nonatomic, strong) MLMeshTexture *texture;
 
 @property (nonatomic, strong) CADisplayLink *displayLink;
-@property (nonatomic, strong) BCMeshTransformAnimation *animation;
+@property (nonatomic, strong) MLMeshTransformAnimation *animation;
 
-@property (nonatomic, copy) BCMeshTransform *presentationMeshTransform;
+@property (nonatomic, copy) MLMeshTransform *presentationMeshTransform;
 
 @property (nonatomic, strong) UIView *dummyAnimationView;
 
 @property (nonatomic) BOOL pendingContentRendering;
 
-/*
-// Use Metal (MTKView) instead of OpenGL (GLKView).
+// Use Metal (MTKView) instead of OpenGL (mtkView).
 @property (nonatomic, strong) MTKView *mtkView;
 @property (nonatomic, strong) MLMeshMetalRender *render;
- */
 
 @end
 
 
-@implementation BCMeshTransformView
+@implementation MLMeshTransformView
 
 + (EAGLContext *)renderingContext
 {
@@ -83,14 +77,6 @@
 {
     self.opaque = NO;
     
-    _glkView = [[GLKView alloc] initWithFrame:self.bounds context:[BCMeshTransformView renderingContext]];
-    _glkView.delegate = self;
-    _glkView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
-    _glkView.opaque = NO;
-    
-    [super addSubview:_glkView];
-
-    /*
     //一个MTLDevice 对象就代表这着一个GPU,通常我们可以调用方法MTLCreateSystemDefaultDevice()来获取代表默认的GPU单个对象.
     _mtkView = [[MTKView alloc] initWithFrame:self.bounds device:MTLCreateSystemDefaultDevice()];
     //判断是否设置成功
@@ -100,10 +86,9 @@
     //视图可以根据视图属性上设置帧速率(指定时间来调用drawInMTKView方法--视图需要渲染时调用)
     _mtkView.preferredFramesPerSecond = 60;
     [super addSubview:_mtkView];
-    */
 
     _diffuseLightFactor = 1.0f;
-    _lightDirection = BCPoint3DMake(0.0, 0.0, 1.0);
+    _lightDirection = MLPoint3DMake(0.0, 0.0, 1.0);
     
     _supplementaryTransform = CATransform3DIdentity;
     
@@ -112,7 +97,7 @@
     [super addSubview:contentViewWrapperView];
     
     __weak typeof(self) welf = self; // thank you John Siracusa!
-    _contentView = [[BCMeshContentView alloc] initWithFrame:self.bounds
+    _contentView = [[MLMeshContentView alloc] initWithFrame:self.bounds
                                                 changeBlock:^{
                                                     [welf setNeedsContentRendering];
                                                 } tickBlock:^(CADisplayLink *displayLink) {
@@ -130,26 +115,25 @@
     self.dummyAnimationView = [UIView new];
     [contentViewWrapperView addSubview:self.dummyAnimationView];
     
-    _shader = [BCMeshShader new];
-    _buffer = [BCMeshBuffer new];
-    _texture = [BCMeshTexture new];
+    _buffer = [MLMeshBuffer new];
+    _texture = [MLMeshTexture new];
     
-    [self setupGL];
+//    [self setupGL];//test
     
-    self.meshTransform = [BCMutableMeshTransform identityMeshTransformWithNumberOfRows:1 numberOfColumns:1];
+    self.meshTransform = [MLMutableMeshTransform identityMeshTransformWithNumberOfRows:1 numberOfColumns:1];
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    self.glkView.frame = self.bounds;
+    self.mtkView.frame = self.bounds;
     self.contentView.bounds = self.bounds;
 }
 
 #pragma mark - Setters
 
-- (void)setMeshTransform:(BCMeshTransform *)meshTransform
+- (void)setMeshTransform:(MLMeshTransform *)meshTransform
 {
     // If we're inside an animation block, then we change properties of
     // a dummy animation layer so that it gets the same animation context.
@@ -163,7 +147,7 @@
     CAAnimation *animation = [self.dummyAnimationView.layer animationForKey:@"opacity"];
     
     if ([animation isKindOfClass:[CABasicAnimation class]]) {
-        [self setAnimation:[[BCMeshTransformAnimation alloc] initWithAnimation:animation
+        [self setAnimation:[[MLMeshTransformAnimation alloc] initWithAnimation:animation
                                                               currentTransform:self.presentationMeshTransform
                                                           destinationTransform:meshTransform]];
     } else {
@@ -174,34 +158,34 @@
     _meshTransform = [meshTransform copy];
 }
 
-- (void)setPresentationMeshTransform:(BCMeshTransform *)presentationMeshTransform
+- (void)setPresentationMeshTransform:(MLMeshTransform *)presentationMeshTransform
 {
     _presentationMeshTransform = [presentationMeshTransform copy];
     
-    [self.buffer fillWithMeshTransform:presentationMeshTransform
-                         positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]];
-    [self.glkView setNeedsDisplay];
+//    [self.buffer fillWithMeshTransform:presentationMeshTransform
+//                         positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]];//test
+    [self.mtkView setNeedsDisplay];
 }
 
-- (void)setLightDirection:(BCPoint3D)lightDirection
+- (void)setLightDirection:(MLPoint3D)lightDirection
 {
     _lightDirection = lightDirection;
-    [self.glkView setNeedsDisplay];
+    [self.mtkView setNeedsDisplay];
 }
 
 - (void)setDiffuseLightFactor:(float)diffuseLightFactor
 {
     _diffuseLightFactor = diffuseLightFactor;
-    [self.glkView setNeedsDisplay];
+    [self.mtkView setNeedsDisplay];
 }
 
 - (void)setSupplementaryTransform:(CATransform3D)supplementaryTransform
 {
     _supplementaryTransform = supplementaryTransform;
-    [self.glkView setNeedsDisplay];
+    [self.mtkView setNeedsDisplay];
 }
 
-- (void)setAnimation:(BCMeshTransformAnimation *)animation
+- (void)setAnimation:(MLMeshTransformAnimation *)animation
 {
     if (animation) {
         self.displayLink.paused = NO;
@@ -215,7 +199,7 @@
         // next run loop tick
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0)), dispatch_get_main_queue(), ^{
             [self.texture renderView:self.contentView];
-            [self.glkView setNeedsDisplay];
+            [self.mtkView setNeedsDisplay];
             
             self.pendingContentRendering = NO;
         });
@@ -251,64 +235,26 @@
     }
 }
 
-
-#pragma mark - OpenGL Handling
-
 - (void)setupGL
 {
-    [EAGLContext setCurrentContext:[BCMeshTransformView renderingContext]];
+//    [EAGLContext setCurrentContext:[MLMeshTransformView renderingContext]];
     
-    [self.shader loadProgram];
+//    [self.shader loadProgram];
     [self.buffer setupOpenGL];
     [self.texture setupOpenGL];
     
     // force initial texture rendering
     [self.texture renderView:self.contentView];
     
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    glEnable(GL_DEPTH_TEST);
-}
-
-- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
-{
-    GLKMatrix4 viewProjectionMatrix = [self transformMatrix];
-    GLKMatrix3 normalMatrix = GLKMatrix4GetMatrix3(viewProjectionMatrix);
-    
-    bool invertible;
-    normalMatrix = GLKMatrix3InvertAndTranspose(normalMatrix, &invertible);
-    
-    // Letting the final transform flatten the vertices so that they
-    // won't get clipped by near/far planes that easily
-    const float ZFlattenScale = 0.0005;
-    viewProjectionMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1.0, 1.0, ZFlattenScale), viewProjectionMatrix);
-    
-    GLKVector3 lightDirection = GLKVector3Normalize(GLKVector3Make(_lightDirection.x, _lightDirection.y, _lightDirection.z));
-    
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    glBindVertexArrayOES(self.buffer.VAO);
-    
-    glUseProgram(self.shader.program);
-    glUniform1i(self.shader.texSamplerUniform, 0);
-    glUniform3fv(self.shader.lightDirectionUniform, 1, lightDirection.v);
-    glUniform1f(self.shader.diffuseFactorUniform, _diffuseLightFactor);
-    glUniformMatrix4fv(self.shader.viewProjectionMatrixUniform, 1, 0, viewProjectionMatrix.m);
-    glUniformMatrix3fv(self.shader.normalMatrixUniform, 1, 0, normalMatrix.m);
-    
-    
-    glBindTexture(GL_TEXTURE_2D, self.texture.texture);
-    
-    glDrawElements(GL_TRIANGLES, self.buffer.indiciesCount, GL_UNSIGNED_INT, 0);
-    
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glUseProgram(0);
-    glBindVertexArrayOES(0);
+//    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+//    glEnable(GL_DEPTH_TEST);
 }
 
 #pragma mark - Geometry
 
 
-- (GLKMatrix4)transformMatrix
+/*
+- (simd_float4x4)transformMatrix
 {
     float xScale = self.bounds.size.width;
     float yScale = self.bounds.size.height;
@@ -338,14 +284,15 @@
     
     return matrix;
 }
+ */
 
-- (GLKVector3)positionScaleWithDepthNormalization:(NSString *)depthNormalization
+- (simd_float3)positionScaleWithDepthNormalization:(NSString *)depthNormalization
 {
     float xScale = self.bounds.size.width;
     float yScale = self.bounds.size.height;
     float zScale = [self zScaleForDepthNormalization:depthNormalization];
     
-    return GLKVector3Make(xScale, yScale, zScale);
+    return simd_float3_make(xScale, yScale, zScale);
 }
 
 
@@ -356,11 +303,11 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         dictionary = @{
-                       kBCDepthNormalizationWidth   : ^float(CGSize size) { return size.width; },
-                       kBCDepthNormalizationHeight  : ^float(CGSize size) { return size.height; },
-                       kBCDepthNormalizationMin     : ^float(CGSize size) { return MIN(size.width, size.height); },
-                       kBCDepthNormalizationMax     : ^float(CGSize size) { return MAX(size.width, size.height); },
-                       kBCDepthNormalizationAverage : ^float(CGSize size) { return 0.5 * (size.width + size.height); },
+                       kMLDepthNormalizationWidth   : ^float(CGSize size) { return size.width; },
+                       kMLDepthNormalizationHeight  : ^float(CGSize size) { return size.height; },
+                       kMLDepthNormalizationMin     : ^float(CGSize size) { return MIN(size.width, size.height); },
+                       kMLDepthNormalizationMax     : ^float(CGSize size) { return MAX(size.width, size.height); },
+                       kMLDepthNormalizationAverage : ^float(CGSize size) { return 0.5 * (size.width + size.height); },
                        };
     });
     
@@ -380,7 +327,7 @@
 - (void)addSubview:(UIView *)view
 {
     [super addSubview:view];
-    NSLog(@"Warning: do not add a subview directly to BCMeshTransformView. Add it to contentView instead.");
+    NSLog(@"Warning: do not add a subview directly to MLMeshTransformView. Add it to contentView instead.");
 }
 
 @end

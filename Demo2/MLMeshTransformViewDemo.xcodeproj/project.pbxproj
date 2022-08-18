@@ -1,0 +1,483 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6755C4692655E6D800D00E37 /* strawberry.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6755C4682655E6D800D00E37 /* strawberry.jpeg */; };
+		6769DB49263AAC09000A3554 /* MLSplitSkewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6769DB48263AAC09000A3554 /* MLSplitSkewViewController.m */; };
+		67D520BF28AE19BB00A6DFF6 /* MLMeshMetalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */; };
+		67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520BD28AE19BB00A6DFF6 /* MLMeshBuffer.m */; };
+		67D520D928AE32E600A6DFF6 /* MLMeshTransform+Interpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520C528AE32E500A6DFF6 /* MLMeshTransform+Interpolation.m */; };
+		67D520DA28AE32E600A6DFF6 /* MLMeshTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520C628AE32E500A6DFF6 /* MLMeshTexture.m */; };
+		67D520DB28AE32E600A6DFF6 /* MLMeshTransformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520CB28AE32E500A6DFF6 /* MLMeshTransformView.m */; };
+		67D520DD28AE32E600A6DFF6 /* MLMeshTransform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D520CD28AE32E500A6DFF6 /* MLMeshTransform.mm */; };
+		67D520DE28AE32E600A6DFF6 /* MLMeshTransformAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520CF28AE32E500A6DFF6 /* MLMeshTransformAnimation.m */; };
+		67D520E028AE32E600A6DFF6 /* MLMeshContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520D328AE32E600A6DFF6 /* MLMeshContentView.m */; };
+		67D520E328AE32E600A6DFF6 /* MLMutableMeshTransform+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520D828AE32E600A6DFF6 /* MLMutableMeshTransform+Convenience.m */; };
+		67E3EB4A2643E6F500F978C3 /* circle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67E3EB492643E6F500F978C3 /* circle.jpg */; };
+		67E3EC232644D1D300F978C3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E3EC222644D1D300F978C3 /* Launch Screen.storyboard */; };
+		9819A5DA1920020400769705 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9819A5D91920020400769705 /* Foundation.framework */; };
+		9819A5DC1920020400769705 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9819A5DB1920020400769705 /* CoreGraphics.framework */; };
+		9819A5DE1920020400769705 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9819A5DD1920020400769705 /* UIKit.framework */; };
+		9819A5E41920020400769705 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9819A5E21920020400769705 /* InfoPlist.strings */; };
+		9819A5E61920020400769705 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9819A5E51920020400769705 /* main.m */; };
+		9819A5EA1920020400769705 /* MLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9819A5E91920020400769705 /* MLAppDelegate.m */; };
+		9819A6161920036500769705 /* MLDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9819A6151920036500769705 /* MLDemoViewController.m */; };
+		9819A63B192005FC00769705 /* MLZoomDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9819A63A192005FC00769705 /* MLZoomDemoViewController.m */; };
+		9819A63E1920061000769705 /* MLCurtainDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9819A63D1920061000769705 /* MLCurtainDemoViewController.m */; };
+		9819A6411920072800769705 /* MLDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9819A6401920072800769705 /* MLDemoTableViewController.m */; };
+		9819A64619200BC400769705 /* picture@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9819A64519200BC400769705 /* picture@2x.jpg */; };
+		9819A64919200E6E00769705 /* MLMeshTransform+DemoTransforms.m in Sources */ = {isa = PBXBuildFile; fileRef = 9819A64819200E6E00769705 /* MLMeshTransform+DemoTransforms.m */; };
+		9819A66E192010DB00769705 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9819A66D192010DB00769705 /* Images.xcassets */; };
+		985F8D94192297340090D0D7 /* MLJellyDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 985F8D93192297340090D0D7 /* MLJellyDemoViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6755C4682655E6D800D00E37 /* strawberry.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = strawberry.jpeg; sourceTree = "<group>"; };
+		6769DB47263AAC09000A3554 /* MLSplitSkewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSplitSkewViewController.h; sourceTree = "<group>"; };
+		6769DB48263AAC09000A3554 /* MLSplitSkewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLSplitSkewViewController.m; sourceTree = "<group>"; };
+		67BDA22A28ACD522009CE82E /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshMetalRender.m; sourceTree = "<group>"; };
+		67D520BB28AE19BB00A6DFF6 /* MLMeshBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshBuffer.h; sourceTree = "<group>"; };
+		67D520BC28AE19BB00A6DFF6 /* MLMeshMetalRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshMetalRender.h; sourceTree = "<group>"; };
+		67D520BD28AE19BB00A6DFF6 /* MLMeshBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshBuffer.m; sourceTree = "<group>"; };
+		67D520C228AE1C8D00A6DFF6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		67D520C328AE1E4200A6DFF6 /* MTKVector3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTKVector3.h; sourceTree = "<group>"; };
+		67D520C428AE2D7200A6DFF6 /* mtktypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mtktypes.h; sourceTree = "<group>"; };
+		67D520C528AE32E500A6DFF6 /* MLMeshTransform+Interpolation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MLMeshTransform+Interpolation.m"; sourceTree = "<group>"; };
+		67D520C628AE32E500A6DFF6 /* MLMeshTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshTexture.m; sourceTree = "<group>"; };
+		67D520C728AE32E500A6DFF6 /* MLMeshTransformAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshTransformAnimation.h; sourceTree = "<group>"; };
+		67D520C828AE32E500A6DFF6 /* MLMeshTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshTexture.h; sourceTree = "<group>"; };
+		67D520C928AE32E500A6DFF6 /* MLMeshTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshTransform.h; sourceTree = "<group>"; };
+		67D520CB28AE32E500A6DFF6 /* MLMeshTransformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshTransformView.m; sourceTree = "<group>"; };
+		67D520CD28AE32E500A6DFF6 /* MLMeshTransform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MLMeshTransform.mm; sourceTree = "<group>"; };
+		67D520CF28AE32E500A6DFF6 /* MLMeshTransformAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshTransformAnimation.m; sourceTree = "<group>"; };
+		67D520D028AE32E600A6DFF6 /* MLMeshTransformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshTransformView.h; sourceTree = "<group>"; };
+		67D520D128AE32E600A6DFF6 /* MLMeshContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshContentView.h; sourceTree = "<group>"; };
+		67D520D328AE32E600A6DFF6 /* MLMeshContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshContentView.m; sourceTree = "<group>"; };
+		67D520D428AE32E600A6DFF6 /* MLMeshTransform+Interpolation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLMeshTransform+Interpolation.h"; sourceTree = "<group>"; };
+		67D520D628AE32E600A6DFF6 /* MLMutableMeshTransform+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLMutableMeshTransform+Convenience.h"; sourceTree = "<group>"; };
+		67D520D828AE32E600A6DFF6 /* MLMutableMeshTransform+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MLMutableMeshTransform+Convenience.m"; sourceTree = "<group>"; };
+		67E3EB492643E6F500F978C3 /* circle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = circle.jpg; sourceTree = "<group>"; };
+		67E3EC222644D1D300F978C3 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		9819A5D61920020400769705 /* MLMeshTransformViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLMeshTransformViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9819A5D91920020400769705 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9819A5DB1920020400769705 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9819A5DD1920020400769705 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9819A5E11920020400769705 /* MLMeshTransformViewDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MLMeshTransformViewDemo-Info.plist"; sourceTree = "<group>"; };
+		9819A5E31920020400769705 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9819A5E51920020400769705 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9819A5E71920020400769705 /* MLMeshTransformViewDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MLMeshTransformViewDemo-Prefix.pch"; sourceTree = "<group>"; };
+		9819A5E81920020400769705 /* MLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLAppDelegate.h; sourceTree = "<group>"; };
+		9819A5E91920020400769705 /* MLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLAppDelegate.m; sourceTree = "<group>"; };
+		9819A5FE1920020400769705 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		9819A6141920036500769705 /* MLDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDemoViewController.h; sourceTree = "<group>"; };
+		9819A6151920036500769705 /* MLDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDemoViewController.m; sourceTree = "<group>"; };
+		9819A639192005FC00769705 /* MLZoomDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLZoomDemoViewController.h; sourceTree = "<group>"; };
+		9819A63A192005FC00769705 /* MLZoomDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLZoomDemoViewController.m; sourceTree = "<group>"; };
+		9819A63C1920061000769705 /* MLCurtainDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCurtainDemoViewController.h; sourceTree = "<group>"; };
+		9819A63D1920061000769705 /* MLCurtainDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCurtainDemoViewController.m; sourceTree = "<group>"; };
+		9819A63F1920072800769705 /* MLDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDemoTableViewController.h; sourceTree = "<group>"; };
+		9819A6401920072800769705 /* MLDemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDemoTableViewController.m; sourceTree = "<group>"; };
+		9819A64519200BC400769705 /* picture@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "picture@2x.jpg"; sourceTree = "<group>"; };
+		9819A64719200E6E00769705 /* MLMeshTransform+DemoTransforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLMeshTransform+DemoTransforms.h"; sourceTree = "<group>"; };
+		9819A64819200E6E00769705 /* MLMeshTransform+DemoTransforms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MLMeshTransform+DemoTransforms.m"; sourceTree = "<group>"; };
+		9819A66D192010DB00769705 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9819A67219211DCA00769705 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		985F8D92192297340090D0D7 /* MLJellyDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLJellyDemoViewController.h; sourceTree = "<group>"; };
+		985F8D93192297340090D0D7 /* MLJellyDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLJellyDemoViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9819A5D31920020400769705 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9819A5DC1920020400769705 /* CoreGraphics.framework in Frameworks */,
+				9819A5DE1920020400769705 /* UIKit.framework in Frameworks */,
+				9819A5DA1920020400769705 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		67D520B928AE19BB00A6DFF6 /* MLMeshTransformView */ = {
+			isa = PBXGroup;
+			children = (
+				67D520C228AE1C8D00A6DFF6 /* README.md */,
+				67D520C428AE2D7200A6DFF6 /* mtktypes.h */,
+				67D520C328AE1E4200A6DFF6 /* MTKVector3.h */,
+				67D520BC28AE19BB00A6DFF6 /* MLMeshMetalRender.h */,
+				67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */,
+				67D520BB28AE19BB00A6DFF6 /* MLMeshBuffer.h */,
+				67D520BD28AE19BB00A6DFF6 /* MLMeshBuffer.m */,
+				67D520D128AE32E600A6DFF6 /* MLMeshContentView.h */,
+				67D520D328AE32E600A6DFF6 /* MLMeshContentView.m */,
+				67D520C828AE32E500A6DFF6 /* MLMeshTexture.h */,
+				67D520C628AE32E500A6DFF6 /* MLMeshTexture.m */,
+				67D520C928AE32E500A6DFF6 /* MLMeshTransform.h */,
+				67D520CD28AE32E500A6DFF6 /* MLMeshTransform.mm */,
+				67D520D428AE32E600A6DFF6 /* MLMeshTransform+Interpolation.h */,
+				67D520C528AE32E500A6DFF6 /* MLMeshTransform+Interpolation.m */,
+				67D520C728AE32E500A6DFF6 /* MLMeshTransformAnimation.h */,
+				67D520CF28AE32E500A6DFF6 /* MLMeshTransformAnimation.m */,
+				67D520D028AE32E600A6DFF6 /* MLMeshTransformView.h */,
+				67D520CB28AE32E500A6DFF6 /* MLMeshTransformView.m */,
+				67D520D628AE32E600A6DFF6 /* MLMutableMeshTransform+Convenience.h */,
+				67D520D828AE32E600A6DFF6 /* MLMutableMeshTransform+Convenience.m */,
+			);
+			name = MLMeshTransformView;
+			path = ../../MLMeshTransformView;
+			sourceTree = "<group>";
+		};
+		9819A5CD1920020400769705 = {
+			isa = PBXGroup;
+			children = (
+				9819A5DF1920020400769705 /* MLMeshTransformViewDemo */,
+				9819A5D81920020400769705 /* Frameworks */,
+				9819A5D71920020400769705 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9819A5D71920020400769705 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9819A5D61920020400769705 /* MLMeshTransformViewDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9819A5D81920020400769705 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				67BDA22A28ACD522009CE82E /* MetalKit.framework */,
+				9819A67219211DCA00769705 /* OpenGLES.framework */,
+				9819A5D91920020400769705 /* Foundation.framework */,
+				9819A5DB1920020400769705 /* CoreGraphics.framework */,
+				9819A5DD1920020400769705 /* UIKit.framework */,
+				9819A5FE1920020400769705 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9819A5DF1920020400769705 /* MLMeshTransformViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				67D520B928AE19BB00A6DFF6 /* MLMeshTransformView */,
+				9819A64A19200E7000769705 /* Demo View Controllers */,
+				9819A5E81920020400769705 /* MLAppDelegate.h */,
+				9819A5E91920020400769705 /* MLAppDelegate.m */,
+				9819A63F1920072800769705 /* MLDemoTableViewController.h */,
+				9819A6401920072800769705 /* MLDemoTableViewController.m */,
+				9819A64719200E6E00769705 /* MLMeshTransform+DemoTransforms.h */,
+				9819A64819200E6E00769705 /* MLMeshTransform+DemoTransforms.m */,
+				9819A64519200BC400769705 /* picture@2x.jpg */,
+				6755C4682655E6D800D00E37 /* strawberry.jpeg */,
+				67E3EB492643E6F500F978C3 /* circle.jpg */,
+				9819A66D192010DB00769705 /* Images.xcassets */,
+				67E3EC222644D1D300F978C3 /* Launch Screen.storyboard */,
+				9819A5E01920020400769705 /* Supporting Files */,
+			);
+			path = MLMeshTransformViewDemo;
+			sourceTree = "<group>";
+		};
+		9819A5E01920020400769705 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9819A5E11920020400769705 /* MLMeshTransformViewDemo-Info.plist */,
+				9819A5E21920020400769705 /* InfoPlist.strings */,
+				9819A5E51920020400769705 /* main.m */,
+				9819A5E71920020400769705 /* MLMeshTransformViewDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9819A64A19200E7000769705 /* Demo View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9819A6141920036500769705 /* MLDemoViewController.h */,
+				9819A6151920036500769705 /* MLDemoViewController.m */,
+				9819A63C1920061000769705 /* MLCurtainDemoViewController.h */,
+				9819A63D1920061000769705 /* MLCurtainDemoViewController.m */,
+				9819A639192005FC00769705 /* MLZoomDemoViewController.h */,
+				9819A63A192005FC00769705 /* MLZoomDemoViewController.m */,
+				985F8D92192297340090D0D7 /* MLJellyDemoViewController.h */,
+				985F8D93192297340090D0D7 /* MLJellyDemoViewController.m */,
+				6769DB47263AAC09000A3554 /* MLSplitSkewViewController.h */,
+				6769DB48263AAC09000A3554 /* MLSplitSkewViewController.m */,
+			);
+			name = "Demo View Controllers";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9819A5D51920020400769705 /* MLMeshTransformViewDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9819A60E1920020400769705 /* Build configuration list for PBXNativeTarget "MLMeshTransformViewDemo" */;
+			buildPhases = (
+				9819A5D21920020400769705 /* Sources */,
+				9819A5D31920020400769705 /* Frameworks */,
+				9819A5D41920020400769705 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MLMeshTransformViewDemo;
+			productName = BCMeshTransformViewDemo;
+			productReference = 9819A5D61920020400769705 /* MLMeshTransformViewDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9819A5CE1920020400769705 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MLMesh;
+				LastUpgradeCheck = 1340;
+				ORGANIZATIONNAME = "Bartosz Ciechanowski";
+				TargetAttributes = {
+					9819A5D51920020400769705 = {
+						DevelopmentTeam = ZA2PCCN27W;
+					};
+				};
+			};
+			buildConfigurationList = 9819A5D11920020400769705 /* Build configuration list for PBXProject "MLMeshTransformViewDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9819A5CD1920020400769705;
+			productRefGroup = 9819A5D71920020400769705 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9819A5D51920020400769705 /* MLMeshTransformViewDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9819A5D41920020400769705 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6755C4692655E6D800D00E37 /* strawberry.jpeg in Resources */,
+				9819A66E192010DB00769705 /* Images.xcassets in Resources */,
+				9819A64619200BC400769705 /* picture@2x.jpg in Resources */,
+				9819A5E41920020400769705 /* InfoPlist.strings in Resources */,
+				67E3EB4A2643E6F500F978C3 /* circle.jpg in Resources */,
+				67E3EC232644D1D300F978C3 /* Launch Screen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9819A5D21920020400769705 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67D520DD28AE32E600A6DFF6 /* MLMeshTransform.mm in Sources */,
+				67D520DA28AE32E600A6DFF6 /* MLMeshTexture.m in Sources */,
+				67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */,
+				67D520E028AE32E600A6DFF6 /* MLMeshContentView.m in Sources */,
+				67D520E328AE32E600A6DFF6 /* MLMutableMeshTransform+Convenience.m in Sources */,
+				67D520DB28AE32E600A6DFF6 /* MLMeshTransformView.m in Sources */,
+				9819A64919200E6E00769705 /* MLMeshTransform+DemoTransforms.m in Sources */,
+				9819A6411920072800769705 /* MLDemoTableViewController.m in Sources */,
+				9819A6161920036500769705 /* MLDemoViewController.m in Sources */,
+				67D520DE28AE32E600A6DFF6 /* MLMeshTransformAnimation.m in Sources */,
+				985F8D94192297340090D0D7 /* MLJellyDemoViewController.m in Sources */,
+				9819A5E61920020400769705 /* main.m in Sources */,
+				67D520D928AE32E600A6DFF6 /* MLMeshTransform+Interpolation.m in Sources */,
+				6769DB49263AAC09000A3554 /* MLSplitSkewViewController.m in Sources */,
+				9819A63E1920061000769705 /* MLCurtainDemoViewController.m in Sources */,
+				9819A63B192005FC00769705 /* MLZoomDemoViewController.m in Sources */,
+				67D520BF28AE19BB00A6DFF6 /* MLMeshMetalRender.m in Sources */,
+				9819A5EA1920020400769705 /* MLAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9819A5E21920020400769705 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9819A5E31920020400769705 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9819A60C1920020400769705 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9819A60D1920020400769705 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9819A60F1920020400769705 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = ZA2PCCN27W;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gavin.mtk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9819A6101920020400769705 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = ZA2PCCN27W;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gavin.mtk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9819A5D11920020400769705 /* Build configuration list for PBXProject "MLMeshTransformViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9819A60C1920020400769705 /* Debug */,
+				9819A60D1920020400769705 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9819A60E1920020400769705 /* Build configuration list for PBXNativeTarget "MLMeshTransformViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9819A60F1920020400769705 /* Debug */,
+				9819A6101920020400769705 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9819A5CE1920020400769705 /* Project object */;
+}
