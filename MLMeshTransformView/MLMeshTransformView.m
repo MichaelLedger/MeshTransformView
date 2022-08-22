@@ -44,6 +44,7 @@
 
 @implementation MLMeshTransformView
 
+/*
 + (EAGLContext *)renderingContext
 {
     static EAGLContext *context;
@@ -54,6 +55,7 @@
     
     return context;
 }
+ */
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -96,27 +98,26 @@
     contentViewWrapperView.clipsToBounds = YES;
     [super addSubview:contentViewWrapperView];
     
-    __weak typeof(self) welf = self; // thank you John Siracusa!
-    _contentView = [[MLMeshContentView alloc] initWithFrame:self.bounds
-                                                changeBlock:^{
-                                                    [welf setNeedsContentRendering];
-                                                } tickBlock:^(CADisplayLink *displayLink) {
-                                                    [welf displayLinkTick:displayLink];
-                                                }];
+//    __weak typeof(self) welf = self; // thank you John Siracusa!
+//    _contentView = [[MLMeshContentView alloc] initWithFrame:self.bounds
+//                                                changeBlock:^{
+//                                                    [welf setNeedsContentRendering];
+//                                                } tickBlock:^(CADisplayLink *displayLink) {
+////                                                    [welf displayLinkTick:displayLink];
+//                                                }];
+//    [contentViewWrapperView addSubview:_contentView];
     
-    [contentViewWrapperView addSubview:_contentView];
-    
-    _displayLink = [CADisplayLink displayLinkWithTarget:_contentView selector:@selector(displayLinkTick:)];
-    _displayLink.paused = YES;
-    [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+//    _displayLink = [CADisplayLink displayLinkWithTarget:_contentView selector:@selector(displayLinkTick:)];
+//    _displayLink.paused = YES;
+//    [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     
     // a dummy view that's used for fetching the parameters
     // of a current animation block and getting animated
     self.dummyAnimationView = [UIView new];
     [contentViewWrapperView addSubview:self.dummyAnimationView];
     
-    _buffer = [MLMeshBuffer new];
-    _texture = [MLMeshTexture new];
+//    _buffer = [MLMeshBuffer new];
+//    _texture = [MLMeshTexture new];
     
 //    [self setupGL];//test
     
@@ -162,8 +163,8 @@
 {
     _presentationMeshTransform = [presentationMeshTransform copy];
     
-//    [self.buffer fillWithMeshTransform:presentationMeshTransform
-//                         positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]];//test
+    [self.buffer fillWithMeshTransform:presentationMeshTransform
+                         positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]];
     [self.mtkView setNeedsDisplay];
 }
 
@@ -219,21 +220,21 @@
 
 #pragma mark - Animation Handling
 
-- (void)displayLinkTick:(CADisplayLink *)displayLink
-{
-    [self.animation tick:displayLink.duration];
-    
-    if (self.animation) {
-        self.presentationMeshTransform = self.animation.currentMeshTransform;
-        
-        if (self.animation.isCompleted) {
-            self.animation = nil;
-            self.displayLink.paused = YES;
-        }
-    } else {
-        self.displayLink.paused = YES;
-    }
-}
+//- (void)displayLinkTick:(CADisplayLink *)displayLink
+//{
+//    [self.animation tick:displayLink.duration];
+//
+//    if (self.animation) {
+//        self.presentationMeshTransform = self.animation.currentMeshTransform;
+//
+//        if (self.animation.isCompleted) {
+//            self.animation = nil;
+//            self.displayLink.paused = YES;
+//        }
+//    } else {
+//        self.displayLink.paused = YES;
+//    }
+//}
 
 - (void)setupGL
 {

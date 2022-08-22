@@ -96,7 +96,7 @@ MTK_INLINE simd_float3 simd_float3_project(simd_float3 vectorToProject, simd_flo
 
 MTK_INLINE simd_float3 simd_float3_make(float x, float y, float z)
 {
-    simd_float3 v = simd_float3_make(x, y, z);
+    simd_float3 v = simd_make_float3(x, y, z);
     return v;
 }
 

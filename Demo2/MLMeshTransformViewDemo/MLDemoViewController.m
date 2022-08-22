@@ -24,7 +24,7 @@
     
     _transformView = [[MLMeshTransformView alloc] initWithFrame:self.view.bounds];
     _transformView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
+
     [self.view addSubview:_transformView];
 }
 

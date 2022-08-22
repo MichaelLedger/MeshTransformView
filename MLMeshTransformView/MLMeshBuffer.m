@@ -71,7 +71,7 @@ typedef struct MLVertex {
     NSUInteger vertexCount = transform.vertexCount;
     NSUInteger indexCount = faceCount * IndexesPerFace;
     
-//    [self resizeBuffersToVertexCount:vertexCount indexCount:indexCount];
+    [self resizeBuffersToVertexCount:vertexCount indexCount:indexCount];
 
     [self fillBuffersWithBlock:^(MLVertex *vertexData, MTuint *indexData) {
         for (int i = 0; i < vertexCount; i++) {
