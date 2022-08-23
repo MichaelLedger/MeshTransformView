@@ -12,7 +12,9 @@
 //#import <OpenGLES/ES2/glext.h>
 
 @implementation MLMeshTexture
-
+{
+    int saveCount;
+}
 
 - (void)setupOpenGL
 {
@@ -72,15 +74,25 @@
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
     
-    
     UIGraphicsBeginImageContextWithOptions(view.frame.size, YES, [UIScreen mainScreen].scale);
     [view drawViewHierarchyInRect:view.layer.bounds afterScreenUpdates:NO];
     UIImage *snap = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //test
+//    if (saveCount < 3) {
+//        UIImageWriteToSavedPhotosAlbum(snap, self, nil, nil);
+//        saveCount++;
+//    }
+    
     UIGraphicsEndImageContext();
     
     MTKTextureLoader *textureLoader = [[MTKTextureLoader alloc] initWithDevice:MTLCreateSystemDefaultDevice()];
+    NSDictionary <MTKTextureLoaderOption, id> *options = @{
+        MTKTextureLoaderOptionTextureUsage: [NSNumber numberWithUnsignedInteger:MTLTextureUsageShaderRead | MTLTextureUsageRenderTarget | MTLTextureUsageShaderWrite],
+        MTKTextureLoaderOptionSRGB: @NO
+    };
     NSError *error = nil;
-    id<MTLTexture> texture = [textureLoader newTextureWithCGImage:snap.CGImage options:nil error:&error];
+    id<MTLTexture> texture = [textureLoader newTextureWithCGImage:snap.CGImage options:options error:&error];
     if (error) {
         NSLog(@"%@", error.localizedDescription);
     }

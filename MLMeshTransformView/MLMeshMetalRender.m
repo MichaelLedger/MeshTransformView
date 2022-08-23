@@ -101,9 +101,12 @@ typedef struct {
 - (void)drawInMTKView:(nonnull MTKView *)view
 {
     //1. 获取颜色值
-    Color color = [self makeFancyColor];
+//    Color color = [self makeFancyColor];
     //2. 设置view的clearColor
-    view.clearColor = MTLClearColorMake(color.red, color.green, color.blue, color.alpha);
+//    view.clearColor = MTLClearColorMake(color.red, color.green, color.blue, color.alpha);
+    
+    //test
+    view.clearColor = MTLClearColorMake(0, 0, 0, 0);
     
     //3. Create a new command buffer for each render pass to the current drawable
     //使用MTLCommandQueue 创建对象并且加入到MTCommandBuffer对象中去.

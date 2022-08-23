@@ -84,7 +84,7 @@
     
     _supplementaryTransform = CATransform3DIdentity;
     
-    UIView *contentViewWrapperView = [UIView new];
+    UIView *contentViewWrapperView = [[UIView alloc] initWithFrame:self.bounds];//test
     contentViewWrapperView.clipsToBounds = YES;
     [super addSubview:contentViewWrapperView];
     
@@ -95,6 +95,7 @@
                                                 } tickBlock:^(CADisplayLink *displayLink) {
 //                                                    [welf displayLinkTick:displayLink];
                                                 }];
+    _contentView.backgroundColor = [UIColor orangeColor];
     [contentViewWrapperView addSubview:_contentView];
     
     _displayLink = [CADisplayLink displayLinkWithTarget:_contentView selector:@selector(displayLinkTick:)];
