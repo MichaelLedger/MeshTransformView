@@ -78,16 +78,6 @@
 - (void)commonInit
 {
     self.opaque = NO;
-    
-    //一个MTLDevice 对象就代表这着一个GPU,通常我们可以调用方法MTLCreateSystemDefaultDevice()来获取代表默认的GPU单个对象.
-    _mtkView = [[MTKView alloc] initWithFrame:self.bounds device:MTLCreateSystemDefaultDevice()];
-    //判断是否设置成功
-    NSAssert(_mtkView.device, @"Metal is not supported on this device");
-    _render = [[MLMeshMetalRender alloc] initWithMetalKitView:_mtkView];
-    _mtkView.delegate = _render;
-    //视图可以根据视图属性上设置帧速率(指定时间来调用drawInMTKView方法--视图需要渲染时调用)
-    _mtkView.preferredFramesPerSecond = 60;
-    [super addSubview:_mtkView];
 
     _diffuseLightFactor = 1.0f;
     _lightDirection = MLPoint3DMake(0.0, 0.0, 1.0);
@@ -98,28 +88,39 @@
     contentViewWrapperView.clipsToBounds = YES;
     [super addSubview:contentViewWrapperView];
     
-//    __weak typeof(self) welf = self; // thank you John Siracusa!
-//    _contentView = [[MLMeshContentView alloc] initWithFrame:self.bounds
-//                                                changeBlock:^{
-//                                                    [welf setNeedsContentRendering];
-//                                                } tickBlock:^(CADisplayLink *displayLink) {
-////                                                    [welf displayLinkTick:displayLink];
-//                                                }];
-//    [contentViewWrapperView addSubview:_contentView];
+    __weak typeof(self) welf = self; // thank you John Siracusa!
+    _contentView = [[MLMeshContentView alloc] initWithFrame:self.bounds
+                                                changeBlock:^{
+                                                    [welf setNeedsContentRendering];
+                                                } tickBlock:^(CADisplayLink *displayLink) {
+//                                                    [welf displayLinkTick:displayLink];
+                                                }];
+    [contentViewWrapperView addSubview:_contentView];
     
-//    _displayLink = [CADisplayLink displayLinkWithTarget:_contentView selector:@selector(displayLinkTick:)];
-//    _displayLink.paused = YES;
-//    [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    _displayLink = [CADisplayLink displayLinkWithTarget:_contentView selector:@selector(displayLinkTick:)];
+    _displayLink.paused = YES;
+    [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     
     // a dummy view that's used for fetching the parameters
     // of a current animation block and getting animated
     self.dummyAnimationView = [UIView new];
     [contentViewWrapperView addSubview:self.dummyAnimationView];
     
-//    _buffer = [MLMeshBuffer new];
-//    _texture = [MLMeshTexture new];
+    _buffer = [MLMeshBuffer new];
+    _texture = [MLMeshTexture new];
     
-//    [self setupGL];//test
+    [self setupGL];
+    
+    //一个MTLDevice 对象就代表这着一个GPU,通常我们可以调用方法MTLCreateSystemDefaultDevice()来获取代表默认的GPU单个对象.
+    id <MTLDevice> device = MTLCreateSystemDefaultDevice();
+    _mtkView = [[MTKView alloc] initWithFrame:self.bounds device:device];
+    //判断是否设置成功
+    NSAssert(_mtkView.device, @"Metal is not supported on this device");
+    _render = [[MLMeshMetalRender alloc] initWithMetalKitView:_mtkView];
+    _mtkView.delegate = _render;
+    //视图可以根据视图属性上设置帧速率(指定时间来调用drawInMTKView方法--视图需要渲染时调用)
+    _mtkView.preferredFramesPerSecond = 60;
+    [super addSubview:_mtkView];
     
     self.meshTransform = [MLMutableMeshTransform identityMeshTransformWithNumberOfRows:1 numberOfColumns:1];
 }
@@ -199,7 +200,8 @@
     if (self.pendingContentRendering == NO) {
         // next run loop tick
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0)), dispatch_get_main_queue(), ^{
-            [self.texture renderView:self.contentView];
+            id<MTLTexture> mt_texture = [self.texture renderView:self.contentView];
+            self.render.texture = mt_texture;
             [self.mtkView setNeedsDisplay];
             
             self.pendingContentRendering = NO;
@@ -245,7 +247,8 @@
     [self.texture setupOpenGL];
     
     // force initial texture rendering
-    [self.texture renderView:self.contentView];
+    id<MTLTexture> mt_texture = [self.texture renderView:self.contentView];
+    self.render.texture = mt_texture;
     
 //    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 //    glEnable(GL_DEPTH_TEST);

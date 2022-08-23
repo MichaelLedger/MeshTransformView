@@ -9,9 +9,9 @@
 
 @interface MLMeshTexture : NSObject
 
-@property (nonatomic, readonly) GLuint texture;
+@property (nonatomic, readonly) MTuint texture;
 
 - (void)setupOpenGL;
-- (void)renderView:(UIView *)view;
+- (id<MTLTexture>)renderView:(UIView *)view;
 
 @end

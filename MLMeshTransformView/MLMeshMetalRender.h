@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MLMeshMetalRender : NSObject<MTKViewDelegate>
 
+@property (nonatomic, strong, nullable) id<MTLTexture> texture;
+
 -(id)initWithMetalKitView:(MTKView *)mtkView;
 
 @end

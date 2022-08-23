@@ -6,6 +6,7 @@
 //
 
 #import "MLMeshTexture.h"
+@import MetalKit;
 
 //#import <OpenGLES/ES2/gl.h>
 //#import <OpenGLES/ES2/glext.h>
@@ -40,15 +41,14 @@
 
 
 
-- (void)renderView:(UIView *)view
+- (id<MTLTexture>)renderView:(UIView *)view
 {
-    /*
     const CGFloat Scale = [UIScreen mainScreen].scale;
     
-    GLsizei width = view.layer.bounds.size.width * Scale;
-    GLsizei height = view.layer.bounds.size.height * Scale;
+    MTsizei width = view.layer.bounds.size.width * Scale;
+    MTsizei height = view.layer.bounds.size.height * Scale;
     
-    GLubyte *texturePixelBuffer = (GLubyte *)calloc(width * height * 4, sizeof(GLubyte));
+    MTubyte *texturePixelBuffer = (MTubyte *)calloc(width * height * 4, sizeof(MTubyte));
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(texturePixelBuffer,
@@ -68,18 +68,30 @@
     // iew (0x7febb4e04840, MLMeshContentView) drawing with afterScreenUpdates:YES inside CoreAnimation commit is not supported.
     
     UIGraphicsPopContext();
-
-
+    
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
     
-
+    
+    UIGraphicsBeginImageContextWithOptions(view.frame.size, YES, [UIScreen mainScreen].scale);
+    [view drawViewHierarchyInRect:view.layer.bounds afterScreenUpdates:NO];
+    UIImage *snap = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    MTKTextureLoader *textureLoader = [[MTKTextureLoader alloc] initWithDevice:MTLCreateSystemDefaultDevice()];
+    NSError *error = nil;
+    id<MTLTexture> texture = [textureLoader newTextureWithCGImage:snap.CGImage options:nil error:&error];
+    if (error) {
+        NSLog(@"%@", error.localizedDescription);
+    }
+    /*
     glBindTexture(GL_TEXTURE_2D, _texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texturePixelBuffer);
     glBindTexture(GL_TEXTURE_2D, 0);
+     */
 
     free(texturePixelBuffer);
-     */
+    return texture;
 }
 
 @end

@@ -120,6 +120,7 @@ typedef struct {
         //6.通过渲染描述符renderPassDescriptor创建MTLRenderCommandEncoder 对象
         id<MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
         renderEncoder.label = @"MyRenderEncoder";
+        [renderEncoder setFragmentTexture:_texture atIndex:0];
         
         //7.我们可以使用MTLRenderCommandEncoder 来绘制对象,但是这个demo我们仅仅创建编码器就可以了,我们并没有让Metal去执行我们绘制的东西,这个时候表示我们的任务已经完成.
         //即可结束MTLRenderCommandEncoder 工作

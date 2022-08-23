@@ -131,6 +131,8 @@ NSString * const kMLDepthNormalizationAverage = @"average";
 
 @implementation MLMutableMeshTransform
 
+@dynamic depthNormalization;
+
 + (instancetype)meshTransform
 {
     return [[self alloc] init];
