@@ -84,7 +84,7 @@
     
     _supplementaryTransform = CATransform3DIdentity;
     
-    UIView *contentViewWrapperView = [[UIView alloc] initWithFrame:self.bounds];//test
+    UIView *contentViewWrapperView = [UIView new];
     contentViewWrapperView.clipsToBounds = YES;
     [super addSubview:contentViewWrapperView];
     
@@ -95,12 +95,12 @@
                                                 } tickBlock:^(CADisplayLink *displayLink) {
 //                                                    [welf displayLinkTick:displayLink];
                                                 }];
-    _contentView.backgroundColor = [UIColor orangeColor];
+    _contentView.backgroundColor = [UIColor whiteColor];//test
     [contentViewWrapperView addSubview:_contentView];
     
-    _displayLink = [CADisplayLink displayLinkWithTarget:_contentView selector:@selector(displayLinkTick:)];
-    _displayLink.paused = YES;
-    [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+//    _displayLink = [CADisplayLink displayLinkWithTarget:_contentView selector:@selector(displayLinkTick:)];
+//    _displayLink.paused = YES;
+//    [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     
     // a dummy view that's used for fetching the parameters
     // of a current animation block and getting animated
@@ -248,8 +248,8 @@
     [self.texture setupOpenGL];
     
     // force initial texture rendering
-    id<MTLTexture> mt_texture = [self.texture renderView:self.contentView];
-    self.render.texture = mt_texture;
+//    id<MTLTexture> mt_texture = [self.texture renderView:self.contentView];
+//    self.render.texture = mt_texture;
     
 //    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 //    glEnable(GL_DEPTH_TEST);

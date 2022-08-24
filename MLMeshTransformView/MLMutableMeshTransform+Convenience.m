@@ -244,9 +244,9 @@ const CGFloat kDoublePhotoPanelGapWidth = 0.1f;
         vertex.to.y = vertex.from.y + offsetY;
         vertex.to.z = zPositon;
         
-        NSLog(@"position==row:%ld,column:%ld", row, column);
-        NSLog(@"vertex.from==x:%f,y:%f", vertex.from.x, vertex.from.y);
-        NSLog(@"vertex.to==x:%f,y:%f", vertex.to.x, vertex.to.y);
+//        NSLog(@"position==row:%ld,column:%ld", row, column);
+//        NSLog(@"vertex.from==x:%f,y:%f", vertex.from.x, vertex.from.y);
+//        NSLog(@"vertex.to==x:%f,y:%f", vertex.to.x, vertex.to.y);
         return vertex;
     }];
     return transform;

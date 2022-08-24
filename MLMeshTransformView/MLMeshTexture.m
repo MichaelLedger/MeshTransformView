@@ -12,13 +12,9 @@
 //#import <OpenGLES/ES2/glext.h>
 
 @implementation MLMeshTexture
-{
-    int saveCount;
-}
 
 - (void)setupOpenGL
 {
-    //test
     /*
     glGenTextures(1, &_texture);
     glBindTexture(GL_TEXTURE_2D, _texture);
@@ -45,6 +41,7 @@
 
 - (id<MTLTexture>)renderView:(UIView *)view
 {
+    /*
     const CGFloat Scale = [UIScreen mainScreen].scale;
     
     MTsizei width = view.layer.bounds.size.width * Scale;
@@ -73,17 +70,11 @@
     
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
+     */
     
     UIGraphicsBeginImageContextWithOptions(view.frame.size, YES, [UIScreen mainScreen].scale);
     [view drawViewHierarchyInRect:view.layer.bounds afterScreenUpdates:NO];
     UIImage *snap = UIGraphicsGetImageFromCurrentImageContext();
-    
-    //test
-//    if (saveCount < 3) {
-//        UIImageWriteToSavedPhotosAlbum(snap, self, nil, nil);
-//        saveCount++;
-//    }
-    
     UIGraphicsEndImageContext();
     
     MTKTextureLoader *textureLoader = [[MTKTextureLoader alloc] initWithDevice:MTLCreateSystemDefaultDevice()];
@@ -102,7 +93,7 @@
     glBindTexture(GL_TEXTURE_2D, 0);
      */
 
-    free(texturePixelBuffer);
+//    free(texturePixelBuffer);
     return texture;
 }
 

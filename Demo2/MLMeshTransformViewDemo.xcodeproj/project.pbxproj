@@ -3,12 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		6755C4692655E6D800D00E37 /* strawberry.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6755C4682655E6D800D00E37 /* strawberry.jpeg */; };
 		6769DB49263AAC09000A3554 /* MLSplitSkewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6769DB48263AAC09000A3554 /* MLSplitSkewViewController.m */; };
+		67D4BAAB28B5CB2B0092E2A8 /* Alloy in Frameworks */ = {isa = PBXBuildFile; productRef = 67D4BAAA28B5CB2B0092E2A8 /* Alloy */; };
+		67D4BAAD28B5CD450092E2A8 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67D4BAAC28B5CD450092E2A8 /* Shaders.metal */; };
 		67D520BF28AE19BB00A6DFF6 /* MLMeshMetalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */; };
 		67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520BD28AE19BB00A6DFF6 /* MLMeshBuffer.m */; };
 		67D520D928AE32E600A6DFF6 /* MLMeshTransform+Interpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520C528AE32E500A6DFF6 /* MLMeshTransform+Interpolation.m */; };
@@ -41,6 +43,7 @@
 		6769DB47263AAC09000A3554 /* MLSplitSkewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSplitSkewViewController.h; sourceTree = "<group>"; };
 		6769DB48263AAC09000A3554 /* MLSplitSkewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLSplitSkewViewController.m; sourceTree = "<group>"; };
 		67BDA22A28ACD522009CE82E /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		67D4BAAC28B5CD450092E2A8 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshMetalRender.m; sourceTree = "<group>"; };
 		67D520BB28AE19BB00A6DFF6 /* MLMeshBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshBuffer.h; sourceTree = "<group>"; };
 		67D520BC28AE19BB00A6DFF6 /* MLMeshMetalRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMeshMetalRender.h; sourceTree = "<group>"; };
@@ -99,6 +102,7 @@
 			files = (
 				9819A5DC1920020400769705 /* CoreGraphics.framework in Frameworks */,
 				9819A5DE1920020400769705 /* UIKit.framework in Frameworks */,
+				67D4BAAB28B5CB2B0092E2A8 /* Alloy in Frameworks */,
 				9819A5DA1920020400769705 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,6 +110,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67D4BAA028B5C5950092E2A8 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				67D4BAAC28B5CD450092E2A8 /* Shaders.metal */,
+			);
+			name = Shaders;
+			path = ../../Shaders;
+			sourceTree = "<group>";
+		};
 		67D520B928AE19BB00A6DFF6 /* MLMeshTransformView */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +181,7 @@
 		9819A5DF1920020400769705 /* MLMeshTransformViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				67D4BAA028B5C5950092E2A8 /* Shaders */,
 				67D520B928AE19BB00A6DFF6 /* MLMeshTransformView */,
 				9819A64A19200E7000769705 /* Demo View Controllers */,
 				9819A5E81920020400769705 /* MLAppDelegate.h */,
@@ -230,6 +244,9 @@
 			dependencies = (
 			);
 			name = MLMeshTransformViewDemo;
+			packageProductDependencies = (
+				67D4BAAA28B5CB2B0092E2A8 /* Alloy */,
+			);
 			productName = BCMeshTransformViewDemo;
 			productReference = 9819A5D61920020400769705 /* MLMeshTransformViewDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -258,6 +275,9 @@
 				Base,
 			);
 			mainGroup = 9819A5CD1920020400769705;
+			packageReferences = (
+				67D4BAA928B5CB2B0092E2A8 /* XCRemoteSwiftPackageReference "alloy" */,
+			);
 			productRefGroup = 9819A5D71920020400769705 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -288,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67D4BAAD28B5CD450092E2A8 /* Shaders.metal in Sources */,
 				67D520DD28AE32E600A6DFF6 /* MLMeshTransform.mm in Sources */,
 				67D520DA28AE32E600A6DFF6 /* MLMeshTexture.m in Sources */,
 				67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */,
@@ -371,6 +392,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -418,6 +440,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -434,6 +457,7 @@
 				GCC_PREFIX_HEADER = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gavin.mtk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -450,6 +474,7 @@
 				GCC_PREFIX_HEADER = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gavin.mtk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -478,6 +503,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		67D4BAA928B5CB2B0092E2A8 /* XCRemoteSwiftPackageReference "alloy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/s1ddok/alloy.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.17.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		67D4BAAA28B5CB2B0092E2A8 /* Alloy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67D4BAA928B5CB2B0092E2A8 /* XCRemoteSwiftPackageReference "alloy" */;
+			productName = Alloy;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9819A5CE1920020400769705 /* Project object */;
 }
