@@ -22,12 +22,15 @@
 
 #import <Foundation/Foundation.h>
 @import MetalKit;
+@class MLMeshBuffer;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MLMeshMetalRender : NSObject<MTKViewDelegate>
 
 @property (nonatomic, strong, nullable) id<MTLTexture> texture;
+
+@property (nonatomic, strong) MLMeshBuffer *meshBuffer;
 
 -(id)initWithMetalKitView:(MTKView *)mtkView;
 

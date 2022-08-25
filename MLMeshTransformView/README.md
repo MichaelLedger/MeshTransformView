@@ -9,6 +9,8 @@
 
 [MetalKit Namespace](https://docs.microsoft.com/zh-cn/dotnet/api/metalkit?view=xamarin-ios-sdk-12)
 
+[OpenGL Transformation](http://www.songho.ca/opengl/gl_transform.html)
+
 [Metal Best Practices Guide - Buffer Bindings](https://developer.apple.com/library/archive/documentation/3DDrawing/Conceptual/MTLBestPracticesGuide/BufferBindings.html)
 
 [Metal by Tutorials](https://www.raywenderlich.com/books/metal-by-tutorials/v3.0/chapters/4-the-vertex-function)
@@ -56,6 +58,8 @@
 [Sample Code - Creating and Sampling Textures](https://developer.apple.com/documentation/metal/textures/creating_and_sampling_textures?language=objc)
 
 [issues in Apple Metal API "setVertexBuffer:offset:atIndex:"](https://stackoverflow.com/questions/58767565/issues-in-apple-metal-api-setvertexbufferoffsetatindex)
+
+[Basic Example for Metal](https://radeon-pro.github.io/RadeonProRenderDocs/en/rr/example_metal.html)
 
 GLKVector2 -> simd_float2
 GLKVector3 -> simd_float3

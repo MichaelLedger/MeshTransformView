@@ -53,7 +53,13 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
     for(int i = 0; i < kMaxInflightBuffers; i++)
     {
         //test
-        matrix_float4x4 projectionMatrix = matrix_identity_float4x4;
+//        matrix_float4x4 projectionMatrix = matrix_identity_float4x4;
+        
+        simd_float4 col0 = simd_make_float4(1, 0, 0, 0.5);
+        simd_float4 col1 = simd_make_float4(0, 1, 0, 0);
+        simd_float4 col2 = simd_make_float4(0, 0, 1, 0);
+        simd_float4 col3 = simd_make_float4(0, 0, 0, 1);
+        matrix_float4x4 projectionMatrix = simd_matrix(col0, col1, col2, col3);
         
         // Create a new buffer with enough capacity to store one instance of the dynamic buffer data
 //        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithLength:sizeof(projectionMatrix) options:bufferOptions];
@@ -136,12 +142,12 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
         [self update];
         
         //1. 获取颜色值
-        Color color = [self makeFancyColor];
+//        Color color = [self makeFancyColor];
         //2. 设置view的clearColor
-        view.clearColor = MTLClearColorMake(color.red, color.green, color.blue, color.alpha);
+//        view.clearColor = MTLClearColorMake(color.red, color.green, color.blue, color.alpha);
         
     //    view.clearColor = MTLClearColorMake(0, 0, 0, 0);//alpha clear
-    //    view.clearColor = MTLClearColorMake(1, 1, 1, 1);//white
+        view.clearColor = MTLClearColorMake(1, 1, 1, 1);//white
         
         //3. Create a new command buffer for each render pass to the current drawable
         //使用MTLCommandQueue 创建对象并且加入到MTCommandBuffer对象中去.
