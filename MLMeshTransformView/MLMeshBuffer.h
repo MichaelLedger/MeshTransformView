@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class MLMeshTransform;
+#import "MLMeshTransform.h"
 @import MetalKit;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,7 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) MTuint VAO;
 @property (nonatomic, readonly) MTsizei indiciesCount;
-@property (nonatomic, readonly) matrix_float4x4 meshMatrix;
+
+@property (nonatomic, readonly) simd_float3 positionScale;
+@property (nonatomic, strong, readonly) MLMeshTransform *transform;
 
 - (void)setupOpenGL;
 

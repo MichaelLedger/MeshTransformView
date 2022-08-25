@@ -65,6 +65,9 @@ typedef struct MLVertex {
 - (void)fillWithMeshTransform:(MLMeshTransform *)transform
                 positionScale:(simd_float3)positionScale
 {
+    _transform = transform;
+    _positionScale = positionScale;
+    
     const int IndexesPerFace = 6;
     
     NSUInteger faceCount = transform.faceCount;

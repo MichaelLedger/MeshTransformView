@@ -7,6 +7,8 @@
 
 [Metal](https://developer.apple.com/metal/)
 
+[Metal feature set tables](https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf)
+
 [MetalKit Namespace](https://docs.microsoft.com/zh-cn/dotnet/api/metalkit?view=xamarin-ios-sdk-12)
 
 [OpenGL Transformation](http://www.songho.ca/opengl/gl_transform.html)
@@ -60,6 +62,8 @@
 [issues in Apple Metal API "setVertexBuffer:offset:atIndex:"](https://stackoverflow.com/questions/58767565/issues-in-apple-metal-api-setvertexbufferoffsetatindex)
 
 [Basic Example for Metal](https://radeon-pro.github.io/RadeonProRenderDocs/en/rr/example_metal.html)
+
+[AMD Radeon™️ ProRender SDK](https://github.com/GPUOpen-LibrariesAndSDKs/RadeonProRenderSDK)
 
 GLKVector2 -> simd_float2
 GLKVector3 -> simd_float3

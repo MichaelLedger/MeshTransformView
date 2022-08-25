@@ -13,7 +13,6 @@ typedef struct {
     float red, green, blue, alpha;
 } Color;
 
-static const NSUInteger kMaxInflightBuffers = 1;
 static dispatch_semaphore_t _frameBoundarySemaphore;
 
 @implementation MLMeshMetalRender
@@ -21,6 +20,7 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
     id<MTLDevice> _device;
     id<MTLCommandQueue> _commandQueue;
     NSArray <id <MTLBuffer>> *_dynamicDataBuffers;
+    NSInteger kMaxInflightBuffers;
 }
 
 //初始化
@@ -30,6 +30,7 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
     if(self)
     {
         _device = mtkView.device;
+        kMaxInflightBuffers = 1;
         
         //所有应用程序需要与GPU交互的第一个对象是一个对象。MTLCommandQueue.
         //你使用MTLCommandQueue 去创建对象,并且加入MTLCommandBuffer 对象中.确保它们能够按照正确顺序发送到GPU.对于每一帧,一个新的MTLCommandBuffer 对象创建并且填满了由GPU执行的命令.
@@ -37,7 +38,7 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
         
         // Create a semaphore that gets signaled at each frame boundary.
         // The GPU signals the semaphore once it completes a frame's work, allowing the CPU to work on a new frame
-        _frameBoundarySemaphore = dispatch_semaphore_create(kMaxInflightBuffers);
+        _frameBoundarySemaphore = dispatch_semaphore_create(1);
         [self makeResources];
     }
     
@@ -48,25 +49,32 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
 {
     // Create a FIFO queue of three dynamic data buffers
     // This ensures that the CPU and GPU are never accessing the same buffer simultaneously
-    MTLResourceOptions bufferOptions = MTLResourceCPUCacheModeDefaultCache;
     NSMutableArray *mutableDynamicDataBuffers = [NSMutableArray arrayWithCapacity:kMaxInflightBuffers];
     for(int i = 0; i < kMaxInflightBuffers; i++)
     {
-        //test
-//        matrix_float4x4 projectionMatrix = matrix_identity_float4x4;
-        
-        simd_float4 col0 = simd_make_float4(1, 0, 0, 0.5);
-        simd_float4 col1 = simd_make_float4(0, 1, 0, 0);
-        simd_float4 col2 = simd_make_float4(0, 0, 1, 0);
-        simd_float4 col3 = simd_make_float4(0, 0, 0, 1);
-        matrix_float4x4 projectionMatrix = simd_matrix(col0, col1, col2, col3);
-        
-        // Create a new buffer with enough capacity to store one instance of the dynamic buffer data
-//        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithLength:sizeof(projectionMatrix) options:bufferOptions];
-        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithBytes:&projectionMatrix length:sizeof(projectionMatrix) options:bufferOptions];
-        [mutableDynamicDataBuffers addObject:dynamicDataBuffer];
+        [mutableDynamicDataBuffers addObject:[self randomMatrix4x4Buffer]];
     }
     _dynamicDataBuffers = [mutableDynamicDataBuffers copy];
+}
+
+- (id <MTLBuffer>)randomMatrix4x4Buffer {
+    //matrix_float4x4 projectionMatrix = matrix_identity_float4x4;
+    
+    float randomValue1 = arc4random_uniform(100) / 100.0;
+    float randomValue2 = arc4random_uniform(100) / 100.0;
+    float randomValue3 = arc4random_uniform(100) / 100.0;
+    
+    simd_float4 col0 = simd_make_float4(1, 0, 0, randomValue1);
+    simd_float4 col1 = simd_make_float4(0, 1, 0, randomValue2);
+    simd_float4 col2 = simd_make_float4(0, 0, 1, randomValue3);
+    simd_float4 col3 = simd_make_float4(0, 0, 0, 1);
+    matrix_float4x4 projectionMatrix = simd_matrix(col0, col1, col2, col3);
+    
+    MTLResourceOptions bufferOptions = MTLResourceCPUCacheModeDefaultCache;
+    // Create a new buffer with enough capacity to store one instance of the dynamic buffer data
+//        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithLength:sizeof(projectionMatrix) options:bufferOptions];
+    id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithBytes:&projectionMatrix length:sizeof(projectionMatrix) options:bufferOptions];
+    return dynamicDataBuffer;
 }
 
 //设置颜色
@@ -131,6 +139,46 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
 
 - (void)update {
     /* Perform updates */
+    
+    // simd_equal(_meshBuffer.positionScale, simd_make_float3(0, 0, 0))
+    if (!_meshBuffer.transform) {
+        return;
+    }
+    
+    // Create a FIFO queue of three dynamic data buffers
+    // This ensures that the CPU and GPU are never accessing the same buffer simultaneously
+//    MTLResourceOptions bufferOptions = MTLResourceCPUCacheModeDefaultCache;
+    NSMutableArray *mutableDynamicDataBuffers = [NSMutableArray arrayWithCapacity:_meshBuffer.transform.faceCount];
+    for(int i = 0; i < _meshBuffer.transform.faceCount; i++)
+    {
+//        MLMeshVertex meshVertex = [_meshBuffer.transform vertexAtIndex:i];
+        MLMeshFace meshFace = [_meshBuffer.transform faceAtIndex:i];
+        
+//        size_t vertex_size = sizeof(meshVertex);
+        size_t indices_size = sizeof(meshFace.indices);
+
+        id<MTLBuffer> indices_buf = [_device newBufferWithLength:indices_size options:MTLResourceCPUCacheModeDefaultCache];
+        memcpy(indices_buf.contents, &meshFace.indices, indices_size);
+//        id<MTLBuffer> vertices_buf = [_device newBufferWithLength:vertex_size options:MTLResourceCPUCacheModeDefaultCache];
+//        memcpy(vertices_buf.contents, &meshVertex, vertex_size);
+        
+        //test
+//        matrix_float4x4 projectionMatrix = matrix_identity_float4x4;
+        
+//        simd_float4 col0 = simd_make_float4(1, 0, 0, 0.5);
+//        simd_float4 col1 = simd_make_float4(0, 1, 0, 0);
+//        simd_float4 col2 = simd_make_float4(0, 0, 1, 0);
+//        simd_float4 col3 = simd_make_float4(0, 0, 0, 1);
+//        matrix_float4x4 projectionMatrix = simd_matrix(col0, col1, col2, col3);
+        
+        // Create a new buffer with enough capacity to store one instance of the dynamic buffer data
+//        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithLength:sizeof(projectionMatrix) options:bufferOptions];
+//        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithBytes:&projectionMatrix length:sizeof(projectionMatrix) options:bufferOptions];
+        
+        [mutableDynamicDataBuffers addObject:indices_buf];
+//        [mutableDynamicDataBuffers addObject:vertices_buf];
+    }
+    _dynamicDataBuffers = [mutableDynamicDataBuffers copy];
 }
 
 - (void)render:(nonnull MTKView *)view {
@@ -139,7 +187,7 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
         dispatch_semaphore_wait(_frameBoundarySemaphore, DISPATCH_TIME_FOREVER);
         
         // Update the per-frame dynamic buffer data
-        [self update];
+//        [self update];//test
         
         //1. 获取颜色值
 //        Color color = [self makeFancyColor];
@@ -272,15 +320,13 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
     {
         //  Update the vertex buffer offset for each draw call
         [renderEncoder setVertexBufferOffset:i*sizeof(projectionMatrix) atIndex:0];
-
+        
+//        [renderEncoder setFragmentBuffer:[self randomMatrix4x4Buffer]  offset:0 atIndex:0];//test
         [renderEncoder setFragmentTexture:texture atIndex:0];
 
         // Draw the vertices
         [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangleStrip vertexStart:0 vertexCount:4];
     }
-
-//    [renderEncoder setFragmentTexture:texture atIndex:0];
-//    [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangleStrip vertexStart:0 vertexCount:4];
     
     if (additionalRenderCommands) {
         additionalRenderCommands(renderEncoder);

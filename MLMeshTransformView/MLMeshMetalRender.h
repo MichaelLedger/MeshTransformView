@@ -21,8 +21,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MLMeshBuffer.h"
 @import MetalKit;
-@class MLMeshBuffer;
 
 NS_ASSUME_NONNULL_BEGIN
 
