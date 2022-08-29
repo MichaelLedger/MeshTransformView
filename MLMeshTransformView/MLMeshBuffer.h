@@ -8,9 +8,25 @@
 
 #import <Foundation/Foundation.h>
 #import "MLMeshTransform.h"
+#import "mtktypes.h"
+#import "MTKVector3.h"
 @import MetalKit;
 
+typedef struct MLVertex {
+    simd_float3 position;
+    simd_float3 normal;
+    simd_float2 uv;
+} MLVertex;
+
 NS_ASSUME_NONNULL_BEGIN
+
+@interface MLVertextModel : NSObject
+
+@property (nonatomic, assign) simd_float3 position;
+@property (nonatomic, assign) simd_float3 normal;
+@property (nonatomic, assign) simd_float2 uv;
+
+@end
 
 @interface MLMeshBuffer : NSObject
 

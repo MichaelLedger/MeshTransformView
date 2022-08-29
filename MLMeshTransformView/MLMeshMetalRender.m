@@ -7,6 +7,7 @@
 //
 
 #import "MLMeshMetalRender.h"
+#import "MLMeshTransformViewDemo-Swift.h"
 
 //颜色结构体
 typedef struct {
@@ -19,18 +20,20 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
 {
     id<MTLDevice> _device;
     id<MTLCommandQueue> _commandQueue;
-    NSArray <id <MTLBuffer>> *_dynamicDataBuffers;
+    NSArray *_dynamicDataBuffers;
     NSInteger kMaxInflightBuffers;
 }
 
 //初始化
 - (id)initWithMetalKitView:(MTKView *)mtkView
+                meshBuffer:(nonnull MLMeshBuffer *)meshBuffer
 {
     self = [super init];
     if(self)
     {
         _device = mtkView.device;
         kMaxInflightBuffers = 1;
+        _meshBuffer = meshBuffer;
         
         //所有应用程序需要与GPU交互的第一个对象是一个对象。MTLCommandQueue.
         //你使用MTLCommandQueue 去创建对象,并且加入MTLCommandBuffer 对象中.确保它们能够按照正确顺序发送到GPU.对于每一帧,一个新的MTLCommandBuffer 对象创建并且填满了由GPU执行的命令.
@@ -52,7 +55,8 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
     NSMutableArray *mutableDynamicDataBuffers = [NSMutableArray arrayWithCapacity:kMaxInflightBuffers];
     for(int i = 0; i < kMaxInflightBuffers; i++)
     {
-        [mutableDynamicDataBuffers addObject:[self randomMatrix4x4Buffer]];
+//        [mutableDynamicDataBuffers addObject:[self randomMatrix4x4Buffer]];
+        [mutableDynamicDataBuffers addObject:[self customMTKMesh]];//test
     }
     _dynamicDataBuffers = [mutableDynamicDataBuffers copy];
 }
@@ -75,6 +79,35 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
 //        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithLength:sizeof(projectionMatrix) options:bufferOptions];
     id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithBytes:&projectionMatrix length:sizeof(projectionMatrix) options:bufferOptions];
     return dynamicDataBuffer;
+}
+
+- (MTKMesh *)customMTKMesh {
+    MTKMeshBufferAllocator *allocator = [[MTKMeshBufferAllocator alloc] initWithDevice:_device];
+    MDLMesh *mdlMesh = [[MDLMesh alloc] initSphereWithExtent:simd_make_float3(0.75, 0.75, 0.75) segments:(vector_uint2){100, 100} inwardNormals:NO geometryType:MDLGeometryTypeTriangles allocator:allocator];
+    NSError *error = nil;
+    MTKMesh *mtkMesh =[[MTKMesh alloc] initWithMesh:mdlMesh device:_device error:&error];
+    return mtkMesh;
+}
+
+#pragma mark - WARNING: Abandoned OC, please use Swift - MLMeshMetalRenderer
+- (MTKMesh *)customMTKMesh2 {
+    MTKMeshBufferAllocator *allocator = [[MTKMeshBufferAllocator alloc] initWithDevice:_device];
+    NSInteger vertexCount = _meshBuffer.transform.vertexCount == 0 ? 1 : _meshBuffer.transform.vertexCount;
+    id<MDLMeshBuffer> vertexBuffer = [allocator newBuffer:vertexCount type:MDLMeshBufferTypeVertex];
+//    MDLMeshBufferMap *map = [mdlMeshBuffer map];
+//    [map bytes];
+    
+    id<MDLMeshBuffer> indexBuffer = [allocator newBuffer:1 type:MDLMeshBufferTypeIndex];//test
+     
+    MDLSubmesh *subMesh = [[MDLSubmesh alloc] initWithIndexBuffer:indexBuffer indexCount:vertexCount indexType:MDLIndexBitDepthUInt16 geometryType:MDLGeometryTypeTriangles material:nil];
+    
+    MDLVertexDescriptor *vertexDesc =[MDLVertexDescriptor new];
+    vertexDesc.attributes[0] = [[MDLVertexAttribute alloc] initWithName:MDLVertexAttributePosition format:MDLVertexFormatFloat2 offset:0 bufferIndex:0];
+    
+    MDLMesh *mdlMesh = [[MDLMesh alloc] initWithVertexBuffer:vertexBuffer vertexCount:vertexCount descriptor:vertexDesc submeshes:@[subMesh]];
+    NSError *error = nil;
+    MTKMesh *mtkMesh =[[MTKMesh alloc] initWithMesh:mdlMesh device:_device error:&error];
+    return mtkMesh;
 }
 
 //设置颜色
@@ -145,6 +178,7 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
         return;
     }
     
+    /*
     // Create a FIFO queue of three dynamic data buffers
     // This ensures that the CPU and GPU are never accessing the same buffer simultaneously
 //    MTLResourceOptions bufferOptions = MTLResourceCPUCacheModeDefaultCache;
@@ -175,10 +209,42 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
 //        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithLength:sizeof(projectionMatrix) options:bufferOptions];
 //        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithBytes:&projectionMatrix length:sizeof(projectionMatrix) options:bufferOptions];
         
+        
         [mutableDynamicDataBuffers addObject:indices_buf];
 //        [mutableDynamicDataBuffers addObject:vertices_buf];
     }
-    _dynamicDataBuffers = [mutableDynamicDataBuffers copy];
+     */
+    
+//    MTKMesh *mtkMesh = [MLMeshMetalRender customMTKMesh2];
+//    _dynamicDataBuffers = @[mtkMesh];
+    
+    MLVertex vertex;
+    vertex.position = simd_make_float3(0, 0, 0);
+    vertex.uv = simd_make_float2(1, 1);
+    vertex.normal = simd_make_float3(0.0f, 0.0f, 0.0f);
+
+    MLVertextModel *vertexModel = [MLVertextModel new];
+    vertexModel.position = vertex.position;
+    vertexModel.uv = vertex.uv;
+    vertexModel.normal = vertex.normal;
+    /*
+     Encoding of 'struct MLVertex' type is incomplete because 'simd_float2' (vector of 2 'float' values) component has unknown encoding
+     */
+//    NSValue *structValue = [NSValue valueWithBytes:&vertex objCType:@encode(struct MLVertex)];
+    NSValue *structValue = [NSValue valueWithBytes:&vertexModel objCType:@encode(MLVertextModel)];
+    NSArray<NSValue *> *vertices = [NSArray arrayWithObjects:structValue, nil];
+    
+    /*
+     The UInt16 value type represents unsigned integers with values ranging from 0 to 65535. Important. The UInt16 type is not CLS-compliant. The CLS-compliant alternative type is Int32. Int16 can be used instead to replace a UInt16 value that ranges from zero to Int16.
+     */
+    NSNumber *indice = [NSNumber numberWithUnsignedInteger:1];
+    NSArray<NSNumber *> *indices = [NSArray arrayWithObjects:indice, nil];
+    MTKMesh *mtkMesh = [MLMeshMetalRenderer createMTKMeshWithVertices:vertices indices:indices];
+    _dynamicDataBuffers = @[mtkMesh];
+    
+    /*
+     TODO: Thread 1: EXC_BAD_ACCESS (code=1, address=0x25)
+     */
 }
 
 - (void)render:(nonnull MTKView *)view {
@@ -315,7 +381,13 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
      }
      */
     
-    [renderEncoder setVertexBuffer:_dynamicDataBuffers[0] offset:0 atIndex:0];
+    MTKMesh *mtkMesh = _dynamicDataBuffers[0];
+    [renderEncoder setVertexBuffer:mtkMesh.vertexBuffers[0].buffer offset:0 atIndex:0];
+//    [renderEncoder setVertexBuffer:_dynamicDataBuffers[0] offset:0 atIndex:0];//test
+    
+    MTKSubmesh *submesh = mtkMesh.submeshes.firstObject;
+    [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:submesh.indexCount indexType:submesh.indexType indexBuffer:submesh.indexBuffer.buffer indexBufferOffset:0];
+    
     for(int i=0; i<kMaxInflightBuffers; i++)
     {
         //  Update the vertex buffer offset for each draw call
@@ -333,8 +405,8 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
     }
 }
 
-static NSString *const kVertexFunctionName = @"textureViewVertex";
-static NSString *const kfragmentFunctionName = @"textureViewFragment";
+static NSString *const kVertexFunctionName = @"vertex_main";//@"textureViewVertex";
+static NSString *const kfragmentFunctionName = @"fragment_main";//@"textureViewFragment";
 - (nullable id<MTLRenderPipelineState>)renderPipelineStateWithPixelFormat:(MTLPixelFormat)pixelFormat {
     if (_device) {
         NSError *err;
@@ -347,10 +419,17 @@ static NSString *const kfragmentFunctionName = @"textureViewFragment";
             pipelineDes.fragmentFunction = [library newFunctionWithName:kfragmentFunctionName];
             pipelineDes.colorAttachments[0].pixelFormat = pixelFormat;
             pipelineDes.colorAttachments[0].blendingEnabled = NO;
+            MTKMesh *mtkMesh = _dynamicDataBuffers[0];
+            pipelineDes.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(mtkMesh.vertexDescriptor);//test
             id<MTLRenderPipelineState> pipelineState = [[library device] newRenderPipelineStateWithDescriptor:pipelineDes error:&err];
+            //Error Domain=CompilerError Code=1 "Vertex function has input attributes but no vertex descriptor was set."
             if (!err) {
                 return pipelineState;
+            } else {
+                NSLog(@"%@", err.localizedDescription);
             }
+        } else {
+            NSLog(@"%@", err.localizedDescription);
         }
     }
     return nil;

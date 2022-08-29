@@ -10,11 +10,9 @@
 #import "MLMeshTransform.h"
 #import <simd/simd.h>
 
-typedef struct MLVertex {
-    simd_float3 position;
-    simd_float3 normal;
-    simd_float2 uv;
-} MLVertex;
+@implementation MLVertextModel
+
+@end
 
 @implementation MLMeshBuffer
 {

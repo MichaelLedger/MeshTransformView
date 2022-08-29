@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6753901528BC543F006F1A18 /* MLMeshMetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6753901428BC543F006F1A18 /* MLMeshMetalRenderer.swift */; };
 		6755C4692655E6D800D00E37 /* strawberry.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6755C4682655E6D800D00E37 /* strawberry.jpeg */; };
 		6769DB49263AAC09000A3554 /* MLSplitSkewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6769DB48263AAC09000A3554 /* MLSplitSkewViewController.m */; };
 		67D4BAAB28B5CB2B0092E2A8 /* Alloy in Frameworks */ = {isa = PBXBuildFile; productRef = 67D4BAAA28B5CB2B0092E2A8 /* Alloy */; };
@@ -39,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6753901328BC543E006F1A18 /* MLMeshTransformViewDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MLMeshTransformViewDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		6753901428BC543F006F1A18 /* MLMeshMetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLMeshMetalRenderer.swift; sourceTree = "<group>"; };
 		6755C4682655E6D800D00E37 /* strawberry.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = strawberry.jpeg; sourceTree = "<group>"; };
 		6769DB47263AAC09000A3554 /* MLSplitSkewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSplitSkewViewController.h; sourceTree = "<group>"; };
 		6769DB48263AAC09000A3554 /* MLSplitSkewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLSplitSkewViewController.m; sourceTree = "<group>"; };
@@ -125,6 +128,8 @@
 				67D520C228AE1C8D00A6DFF6 /* README.md */,
 				67D520C428AE2D7200A6DFF6 /* mtktypes.h */,
 				67D520C328AE1E4200A6DFF6 /* MTKVector3.h */,
+				6753901428BC543F006F1A18 /* MLMeshMetalRenderer.swift */,
+				6753901328BC543E006F1A18 /* MLMeshTransformViewDemo-Bridging-Header.h */,
 				67D520BC28AE19BB00A6DFF6 /* MLMeshMetalRender.h */,
 				67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */,
 				67D520BB28AE19BB00A6DFF6 /* MLMeshBuffer.h */,
@@ -263,6 +268,7 @@
 				TargetAttributes = {
 					9819A5D51920020400769705 = {
 						DevelopmentTeam = ZA2PCCN27W;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -324,6 +330,7 @@
 				67D520D928AE32E600A6DFF6 /* MLMeshTransform+Interpolation.m in Sources */,
 				6769DB49263AAC09000A3554 /* MLSplitSkewViewController.m in Sources */,
 				9819A63E1920061000769705 /* MLCurtainDemoViewController.m in Sources */,
+				6753901528BC543F006F1A18 /* MLMeshMetalRenderer.swift in Sources */,
 				9819A63B192005FC00769705 /* MLZoomDemoViewController.m in Sources */,
 				67D520BF28AE19BB00A6DFF6 /* MLMeshMetalRender.m in Sources */,
 				9819A5EA1920020400769705 /* MLAppDelegate.m in Sources */,
@@ -452,14 +459,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = ZA2PCCN27W;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gavin.mtk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "../MLMeshTransformView/MLMeshTransformViewDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -469,14 +484,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = ZA2PCCN27W;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "MLMeshTransformViewDemo/MLMeshTransformViewDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gavin.mtk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "../MLMeshTransformView/MLMeshTransformViewDemo-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

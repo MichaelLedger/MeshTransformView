@@ -117,8 +117,7 @@
     _mtkView = [[MTKView alloc] initWithFrame:self.bounds device:device];
     //判断是否设置成功
     NSAssert(_mtkView.device, @"Metal is not supported on this device");
-    _render = [[MLMeshMetalRender alloc] initWithMetalKitView:_mtkView];
-    _render.meshBuffer = _buffer;
+    _render = [[MLMeshMetalRender alloc] initWithMetalKitView:_mtkView meshBuffer:_buffer];
     _mtkView.delegate = _render;
     //视图可以根据视图属性上设置帧速率(指定时间来调用drawInMTKView方法--视图需要渲染时调用)
     _mtkView.preferredFramesPerSecond = 60;

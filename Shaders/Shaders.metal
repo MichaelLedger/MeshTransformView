@@ -31,3 +31,14 @@ fragment float4 textureViewFragment(TextureViewFragmentIn in [[stage_in]],
     const auto position = float3(in.textureCoordinate, 1.0f).xy;
     return source.sample(s, position);
 }
+
+/*==== Shader-Japan ====*/
+struct VertexIn {
+  float4 position [[ attribute(0) ]];
+};
+vertex float4 vertex_main(const VertexIn vertex_in [[ stage_in ]]) {
+  return vertex_in.position;
+}
+fragment float4 fragment_main() {
+  return float4(1, 0, 0, 1);
+}

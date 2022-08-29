@@ -5,7 +5,7 @@
 //  Copyright (c) 2014 Bartosz Ciechanowski. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 typedef struct MLPoint3D {
     CGFloat x;

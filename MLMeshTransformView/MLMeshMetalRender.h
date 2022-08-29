@@ -32,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MLMeshBuffer *meshBuffer;
 
--(id)initWithMetalKitView:(MTKView *)mtkView;
+-(id)initWithMetalKitView:(MTKView *)mtkView
+               meshBuffer:(MLMeshBuffer *)meshBuffer;
 
 @end
 

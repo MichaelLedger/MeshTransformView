@@ -5,6 +5,8 @@
 
 #  How to convert OpenGL to Metal
 
+[Apple - Migrating OpenGL Code to Metal](https://developer.apple.com/documentation/metal/metal_sample_code_library/migrating_opengl_code_to_metal?language=objc)
+
 [Metal](https://developer.apple.com/metal/)
 
 [Metal feature set tables](https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf)
@@ -15,13 +17,21 @@
 
 [Metal Best Practices Guide - Buffer Bindings](https://developer.apple.com/library/archive/documentation/3DDrawing/Conceptual/MTLBestPracticesGuide/BufferBindings.html)
 
+[WWDC - Adopting Metal, Part 1](https://docs.huihoo.com/apple/wwdc/2016/602_adopting_metal_part_1.pdf)
+
 [Metal by Tutorials](https://www.raywenderlich.com/books/metal-by-tutorials/v3.0/chapters/4-the-vertex-function)
+
+[Metal by Tutorials: Materials](https://github.com/raywenderlich/met-materials/tree/editions/2.0)
+
+[iOS图像：Metal 入门](https://www.jianshu.com/p/2e2439e15952)
 
 [WWDC- Metal](https://developer.apple.com/videos/wwdc2014/?q=metal)
 
 [Convert](https://stackoverflow.com/questions/70817609/how-do-i-convert-an-opengl-glkview-to-a-mtlkit-metal-based-view)
 
 [Moving from OpenGL to Metal](https://www.raywenderlich.com/9211-moving-from-opengl-to-metal)
+
+[WWDC18 - Metal for OpenGL Developers](https://developer.apple.com/videos/play/wwdc2018/604/)
 
 [Working with Metal—Overview](https://devstreaming-cdn.apple.com/videos/wwdc/2014/603xx33n8igr5n1/603/603_working_with_metal_overview.pdf?dl=1)
 
@@ -64,6 +74,18 @@
 [Basic Example for Metal](https://radeon-pro.github.io/RadeonProRenderDocs/en/rr/example_metal.html)
 
 [AMD Radeon™️ ProRender SDK](https://github.com/GPUOpen-LibrariesAndSDKs/RadeonProRenderSDK)
+
+[Making an MDLMesh from vertexData](https://forums.raywenderlich.com/t/making-an-mdlmesh-from-vertexdata/145678)
+
+[Mesh in Metal IOS](https://stackoverflow.com/questions/54663137/mesh-in-metal-ios)
+
+[Programmatic generation of MDLMesh objects using initWithVertexBuffers](https://stackoverflow.com/questions/46804603/programmatic-generation-of-mdlmesh-objects-using-initwithvertexbuffers)
+
+[Metal Tutorial with Swift 3 Part 2: Moving to 3D](https://www.raywenderlich.com/728-metal-tutorial-with-swift-3-part-2-moving-to-3d)
+
+[Objective-C Structures](https://www.tutorialspoint.com/objective_c/objective_c_structures.htm)
+
+[How to add a custom initializer to a struct without losing its memberwise initializer](https://www.hackingwithswift.com/example-code/language/how-to-add-a-custom-initializer-to-a-struct-without-losing-its-memberwise-initializer)
 
 GLKVector2 -> simd_float2
 GLKVector3 -> simd_float3
