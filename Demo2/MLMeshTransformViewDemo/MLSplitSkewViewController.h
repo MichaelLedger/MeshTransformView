@@ -3,7 +3,7 @@
 //  MLMeshTransformViewDemo
 //
 //  Created by Gavin Xiang on 2021/4/29.
-//  Copyright © 2021 Bartosz Ciechanowski. All rights reserved.
+//  Copyright © 2021 Gavin Xiang. All rights reserved.
 //
 
 #import "MLDemoViewController.h"

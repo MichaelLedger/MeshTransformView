@@ -2,7 +2,7 @@
 //  MLMeshTransformView.m
 //  MLMeshTransformView
 //
-//  Copyright (c) 2014 Bartosz Ciechanowski. All rights reserved.
+//  Copyright (c) 2014 Gavin Xiang. All rights reserved.
 //
 
 //#import <GLKit/GLKit.h>
@@ -20,6 +20,11 @@
 #import "MLMutableMeshTransform+Convenience.h"
 
 #import "MLMeshMetalRender.h"
+#import "MLMeshTriangleRenderer.h"
+#import "MLMeshLargeDataRenderer.h"
+#import "MLMeshLoadPngImageRenderer.h"
+#import "MLMeshLoadTgaImageRenderer.h"
+#import "MLMeshPyramidRenderer.h"
 
 @interface MLMeshTransformView()
 
@@ -37,7 +42,12 @@
 
 // Use Metal (MTKView) instead of OpenGL (mtkView).
 @property (nonatomic, strong) MTKView *mtkView;
-@property (nonatomic, strong) MLMeshMetalRender *render;
+@property (nonatomic, strong) MLMeshMetalRender *render;// 3D扭曲渲染器
+//@property (nonatomic, strong) MLMeshTriangleRenderer *render;// 三角形渲染器
+//@property (nonatomic, strong) MLMeshLargeDataRenderer *render;// 顶点数据达到上限渲染器
+//@property (nonatomic, strong) MLMeshLoadPngImageRenderer *render;// 加载PNG文件渲染器
+//@property (nonatomic, strong) MLMeshLoadTgaImageRenderer *render;// 加载TGA文件渲染器
+//@property (nonatomic, strong) MLMeshPyramidRenderer *render;// 金字塔渲染器(GLKit+Metal)
 
 @end
 
@@ -117,10 +127,16 @@
     _mtkView = [[MTKView alloc] initWithFrame:self.bounds device:device];
     //判断是否设置成功
     NSAssert(_mtkView.device, @"Metal is not supported on this device");
-    _render = [[MLMeshMetalRender alloc] initWithMetalKitView:_mtkView meshBuffer:_buffer];
+    _render = [[MLMeshMetalRender alloc] initWithMetalKitView:_mtkView meshBuffer:_buffer];//test
+//    _render = [[MLMeshLargeDataRenderer alloc] initWithMetalKitView:_mtkView];
+    
     _mtkView.delegate = _render;
     //视图可以根据视图属性上设置帧速率(指定时间来调用drawInMTKView方法--视图需要渲染时调用)
     _mtkView.preferredFramesPerSecond = 60;
+    
+    //告知 mtkView 的大小（可省略这步）
+    [self.render mtkView:self.mtkView drawableSizeWillChange:self.mtkView.drawableSize];
+    
     [super addSubview:_mtkView];
     
     self.meshTransform = [MLMutableMeshTransform identityMeshTransformWithNumberOfRows:1 numberOfColumns:1];
@@ -202,7 +218,16 @@
         // next run loop tick
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0)), dispatch_get_main_queue(), ^{
             id<MTLTexture> mt_texture = [self.texture renderView:self.contentView];
-            self.render.texture = mt_texture;
+            if ([self.render isKindOfClass:[MLMeshMetalRender class]]) {
+                MLMeshMetalRender *meshRender = (MLMeshMetalRender *)self.render;
+                meshRender.texture = mt_texture;
+            } else if ([self.render isKindOfClass:[MLMeshTriangleRenderer class]]) {
+                MLMeshTriangleRenderer *triangleRender = (MLMeshTriangleRenderer *)self.render;
+                triangleRender.texture = mt_texture;
+            } else if ([self.render isKindOfClass:[MLMeshLargeDataRenderer class]]) {
+                MLMeshLargeDataRenderer *triangleRender = (MLMeshLargeDataRenderer *)self.render;
+                triangleRender.texture = mt_texture;
+            }
             [self.mtkView setNeedsDisplay];
             
             self.pendingContentRendering = NO;

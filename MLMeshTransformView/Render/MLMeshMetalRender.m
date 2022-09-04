@@ -3,7 +3,7 @@
 //  MLMeshTransformViewDemo
 //
 //  Created by Gavin Xiang on 2022/8/17.
-//  Copyright © 2022 Bartosz Ciechanowski. All rights reserved.
+//  Copyright © 2022 Gavin Xiang. All rights reserved.
 //
 
 #import "MLMeshMetalRender.h"
@@ -55,30 +55,79 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
     NSMutableArray *mutableDynamicDataBuffers = [NSMutableArray arrayWithCapacity:kMaxInflightBuffers];
     for(int i = 0; i < kMaxInflightBuffers; i++)
     {
-//        [mutableDynamicDataBuffers addObject:[self randomMatrix4x4Buffer]];
-        [mutableDynamicDataBuffers addObject:[self customMTKMesh]];//test
+        //test
+        [mutableDynamicDataBuffers addObject:[self randomMatrix4x4Buffer]];
+//        [mutableDynamicDataBuffers addObject:[self customMTKMesh]];
+        
+        /*==== MTKMesh Begin ====*/
+        /*
+        MLVertex vertex;
+        vertex.position = simd_make_float3(0, 0, 0);
+        vertex.uv = simd_make_float2(1, 1);
+        vertex.normal = simd_make_float3(0.0f, 0.0f, 0.0f);
+
+        MLVertextModel *vertexModel = [MLVertextModel new];
+        vertexModel.position = vertex.position;
+        vertexModel.uv = vertex.uv;
+        vertexModel.normal = vertex.normal;
+        
+        // Encoding of 'struct MLVertex' type is incomplete because 'simd_float2' (vector of 2 'float' values) component has unknown encoding
+        //    NSValue *structValue = [NSValue valueWithBytes:&vertex objCType:@encode(struct MLVertex)];
+        NSValue *structValue = [NSValue valueWithBytes:&vertexModel objCType:@encode(MLVertextModel)];
+        NSArray<NSValue *> *vertices = [NSArray arrayWithObjects:structValue, nil];
+        
+        // The UInt16 value type represents unsigned integers with values ranging from 0 to 65535. Important. The UInt16 type is not CLS-compliant. The CLS-compliant alternative type is Int32. Int16 can be used instead to replace a UInt16 value that ranges from zero to Int16.
+        NSNumber *indice = [NSNumber numberWithUnsignedInteger:1];
+        NSArray<NSNumber *> *indices = [NSArray arrayWithObjects:indice, nil];
+        MTKMesh *mtkMesh = [MLMeshMetalRenderer createMTKMeshWithVertices:vertices indices:indices];
+        [mutableDynamicDataBuffers addObject:mtkMesh];
+        */
+        /*==== MTKMesh End ====*/
+
     }
+    //TODO: Thread 1: EXC_BAD_ACCESS (code=EXC_I386_GPFLT)
     _dynamicDataBuffers = [mutableDynamicDataBuffers copy];
 }
 
 - (id <MTLBuffer>)randomMatrix4x4Buffer {
-    //matrix_float4x4 projectionMatrix = matrix_identity_float4x4;
+//    matrix_float4x4 projectionMatrix = matrix_identity_float4x4;
+    
     
     float randomValue1 = arc4random_uniform(100) / 100.0;
     float randomValue2 = arc4random_uniform(100) / 100.0;
     float randomValue3 = arc4random_uniform(100) / 100.0;
     
-    simd_float4 col0 = simd_make_float4(1, 0, 0, randomValue1);
-    simd_float4 col1 = simd_make_float4(0, 1, 0, randomValue2);
-    simd_float4 col2 = simd_make_float4(0, 0, 1, randomValue3);
-    simd_float4 col3 = simd_make_float4(0, 0, 0, 1);
-    matrix_float4x4 projectionMatrix = simd_matrix(col0, col1, col2, col3);
+//    simd_float4 col0 = simd_make_float4(1, 0, 0, randomValue1);
+//    simd_float4 col1 = simd_make_float4(0, 1, 0, randomValue2);
+//    simd_float4 col2 = simd_make_float4(0, 0, 1, randomValue3);
+//    simd_float4 col3 = simd_make_float4(0, 0, 0, 1);
+    
+    simd_float4 col0 = simd_make_float4(randomValue1, 0, 0, randomValue1);
+    simd_float4 col1 = simd_make_float4(0, randomValue1, 0, randomValue2);
+    simd_float4 col2 = simd_make_float4(0, 0, randomValue1, randomValue3);
+    simd_float4 col3 = simd_make_float4(0, 0, 0, randomValue1);
+//    matrix_float4x4 projectionMatrix = simd_matrix(col0, col1, col2, col3);
+    matrix_float4x4 projectionMatrix = {col0, col1, col2, col3};
+    
+    //test
+    [self printMatrixFloat4x4:projectionMatrix];
     
     MTLResourceOptions bufferOptions = MTLResourceCPUCacheModeDefaultCache;
     // Create a new buffer with enough capacity to store one instance of the dynamic buffer data
 //        id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithLength:sizeof(projectionMatrix) options:bufferOptions];
     id <MTLBuffer> dynamicDataBuffer = [_device newBufferWithBytes:&projectionMatrix length:sizeof(projectionMatrix) options:bufferOptions];
     return dynamicDataBuffer;
+}
+
+
+#pragma mark - Print Matrix 4x4
+- (void)printMatrixFloat4x4:(matrix_float4x4)matrix {
+    simd_float4 col0 = matrix.columns[0];
+    simd_float4 col1 = matrix.columns[1];
+    simd_float4 col2 = matrix.columns[2];
+    simd_float4 col3 = matrix.columns[3];
+    
+    NSLog(@"%s\n%f,%f,%f,%f\n%f,%f,%f,%f\n%f,%f,%f,%f\n%f,%f,%f,%f", __func__, col0[0], col0[1], col0[2], col0[3], col1[0], col1[1], col1[2], col1[3], col2[0], col2[1], col2[2], col2[3], col3[0], col3[1], col3[2], col3[3]);
 }
 
 - (MTKMesh *)customMTKMesh {
@@ -326,7 +375,7 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
     
 }
 
-// MARK: Draw
+//MARK: Draw
 
 /// Draw a texture
 ///
@@ -381,12 +430,12 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
      }
      */
     
-    MTKMesh *mtkMesh = _dynamicDataBuffers[0];
-    [renderEncoder setVertexBuffer:mtkMesh.vertexBuffers[0].buffer offset:0 atIndex:0];
-//    [renderEncoder setVertexBuffer:_dynamicDataBuffers[0] offset:0 atIndex:0];//test
+//    MTKMesh *mtkMesh = _dynamicDataBuffers[0];
+//    [renderEncoder setVertexBuffer:mtkMesh.vertexBuffers[0].buffer offset:0 atIndex:0];
+    [renderEncoder setVertexBuffer:_dynamicDataBuffers[0] offset:0 atIndex:0];//test
     
-    MTKSubmesh *submesh = mtkMesh.submeshes.firstObject;
-    [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:submesh.indexCount indexType:submesh.indexType indexBuffer:submesh.indexBuffer.buffer indexBufferOffset:0];
+//    MTKSubmesh *submesh = mtkMesh.submeshes.firstObject;
+//    [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:submesh.indexCount indexType:submesh.indexType indexBuffer:submesh.indexBuffer.buffer indexBufferOffset:0];//test
     
     for(int i=0; i<kMaxInflightBuffers; i++)
     {
@@ -405,8 +454,13 @@ static dispatch_semaphore_t _frameBoundarySemaphore;
     }
 }
 
-static NSString *const kVertexFunctionName = @"vertex_main";//@"textureViewVertex";
-static NSString *const kfragmentFunctionName = @"fragment_main";//@"textureViewFragment";
+#pragma mark VertexFunction 顶点函数
+//@"textureViewVertex" @"vertex_main" @"vertexShader"
+static NSString *const kVertexFunctionName = @"textureViewVertex";
+
+#pragma mark FragmentFunction 片元函数
+// @"textureViewFragment" @"fragment_main" @"fragmentShader"
+static NSString *const kfragmentFunctionName = @"textureViewFragment";
 - (nullable id<MTLRenderPipelineState>)renderPipelineStateWithPixelFormat:(MTLPixelFormat)pixelFormat {
     if (_device) {
         NSError *err;
@@ -419,8 +473,8 @@ static NSString *const kfragmentFunctionName = @"fragment_main";//@"textureViewF
             pipelineDes.fragmentFunction = [library newFunctionWithName:kfragmentFunctionName];
             pipelineDes.colorAttachments[0].pixelFormat = pixelFormat;
             pipelineDes.colorAttachments[0].blendingEnabled = NO;
-            MTKMesh *mtkMesh = _dynamicDataBuffers[0];
-            pipelineDes.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(mtkMesh.vertexDescriptor);//test
+//            MTKMesh *mtkMesh = _dynamicDataBuffers[0];
+//            pipelineDes.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(mtkMesh.vertexDescriptor);//test
             id<MTLRenderPipelineState> pipelineState = [[library device] newRenderPipelineStateWithDescriptor:pipelineDes error:&err];
             //Error Domain=CompilerError Code=1 "Vertex function has input attributes but no vertex descriptor was set."
             if (!err) {

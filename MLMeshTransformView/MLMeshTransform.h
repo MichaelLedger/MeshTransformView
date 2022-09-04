@@ -2,7 +2,7 @@
 //  MLMeshTransform.h
 //  MLMeshTransformView
 //
-//  Copyright (c) 2014 Bartosz Ciechanowski. All rights reserved.
+//  Copyright (c) 2014 Gavin Xiang. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

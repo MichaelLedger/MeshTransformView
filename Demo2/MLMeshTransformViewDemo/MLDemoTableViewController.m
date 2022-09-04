@@ -2,8 +2,8 @@
 //  MLDemoTableViewController.m
 //  MLMeshTransformViewDemo
 //
-//  Created by Bartosz Ciechanowski on 11/05/14.
-//  Copyright (c) 2014 Bartosz Ciechanowski. All rights reserved.
+//  Created by Gavin Xiang on 11/05/14.
+//  Copyright (c) 2014 Gavin Xiang. All rights reserved.
 //
 
 #import "MLDemoTableViewController.h"
@@ -12,6 +12,7 @@
 #import "MLCurtainDemoViewController.h"
 #import "MLJellyDemoViewController.h"
 #import "MLSplitSkewViewController.h"
+#import "MLMeshDemoViewController.h"
 
 static NSString * const MLNameKey = @"name";
 static NSString * const MLClassKey = @"class";
@@ -38,6 +39,7 @@ static NSString * const MLCellReuseIdentifier = @"MLCellReuseIdentifier";
           @{MLNameKey: @"Zoom", MLClassKey : [MLZoomDemoViewController class]},
           @{MLNameKey: @"Jelly",  MLClassKey : [MLJellyDemoViewController class]},
           @{MLNameKey: @"SplitSkew",  MLClassKey : [MLSplitSkewViewController class]},
+          @{MLNameKey: @"Metal",  MLClassKey : [MLMeshDemoViewController class]}
           ];
     }
     return self;
@@ -69,7 +71,7 @@ static NSString * const MLCellReuseIdentifier = @"MLCellReuseIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Class class = self.demoViewControllersDicts[indexPath.row][MLClassKey];
-    MLDemoViewController *demoController = [class new];
+    UIViewController *demoController = [class new];
     demoController.title = self.demoViewControllersDicts[indexPath.row][MLNameKey];
     
     [self.navigationController pushViewController:demoController animated:YES];

@@ -2,8 +2,8 @@
 //  MLMutableMeshTransform+Convenience.h
 //  MLMeshTransformView
 //
-//  Created by Bartosz Ciechanowski on 24/04/14.
-//  Copyright (c) 2014 Bartosz Ciechanowski. All rights reserved.
+//  Created by Gavin Xiang on 24/04/14.
+//  Copyright (c) 2014 Gavin Xiang. All rights reserved.
 //
 
 #import "MLMeshTransform.h"

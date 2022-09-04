@@ -3,7 +3,7 @@
 //  MLMeshTransformViewDemo
 //
 //  Created by Gavin Xiang on 2022/8/17.
-//  Copyright © 2022 Bartosz Ciechanowski. All rights reserved.
+//  Copyright © 2022 Gavin Xiang. All rights reserved.
 //
 
 #import "MLMeshBuffer.h"

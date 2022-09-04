@@ -9,6 +9,10 @@
 
 [Metal](https://developer.apple.com/metal/)
 
+[iOS图像：Metal 入门](https://www.jianshu.com/p/2e2439e15952)
+
+[Multi-MediaDemo](https://github.com/xiejiapei-creator/Multi-MediaDemo)
+
 [Metal feature set tables](https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf)
 
 [MetalKit Namespace](https://docs.microsoft.com/zh-cn/dotnet/api/metalkit?view=xamarin-ios-sdk-12)
@@ -22,8 +26,6 @@
 [Metal by Tutorials](https://www.raywenderlich.com/books/metal-by-tutorials/v3.0/chapters/4-the-vertex-function)
 
 [Metal by Tutorials: Materials](https://github.com/raywenderlich/met-materials/tree/editions/2.0)
-
-[iOS图像：Metal 入门](https://www.jianshu.com/p/2e2439e15952)
 
 [WWDC- Metal](https://developer.apple.com/videos/wwdc2014/?q=metal)
 
@@ -86,6 +88,8 @@
 [Objective-C Structures](https://www.tutorialspoint.com/objective_c/objective_c_structures.htm)
 
 [How to add a custom initializer to a struct without losing its memberwise initializer](https://www.hackingwithswift.com/example-code/language/how-to-add-a-custom-initializer-to-a-struct-without-losing-its-memberwise-initializer)
+
+[Metal（4）- 大量顶点数据的图形渲染](https://www.jianshu.com/p/84515768e839)
 
 GLKVector2 -> simd_float2
 GLKVector3 -> simd_float3
