@@ -122,6 +122,8 @@
     [self.view addSubview:sliderLabel];
     
     UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(140.f, 590.f, 200, 50.f)];
+    slider.minimumValue = -M_PI;
+    slider.maximumValue = M_PI;
     [self.view addSubview:slider];
     self.slider = slider;
     

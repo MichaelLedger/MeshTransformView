@@ -25,6 +25,7 @@
 #import "MLMeshLoadPngImageRenderer.h"
 #import "MLMeshLoadTgaImageRenderer.h"
 #import "MLMeshPyramidRenderer.h"
+#import "MLMeshMultiFaceRenderer.h"
 
 @interface MLMeshTransformView()
 
@@ -42,12 +43,13 @@
 
 // Use Metal (MTKView) instead of OpenGL (mtkView).
 @property (nonatomic, strong) MTKView *mtkView;
-@property (nonatomic, strong) MLMeshMetalRender *render;// 3D扭曲渲染器
+//@property (nonatomic, strong) MLMeshMetalRender *render;// 3D扭曲渲染器
 //@property (nonatomic, strong) MLMeshTriangleRenderer *render;// 三角形渲染器
 //@property (nonatomic, strong) MLMeshLargeDataRenderer *render;// 顶点数据达到上限渲染器
 //@property (nonatomic, strong) MLMeshLoadPngImageRenderer *render;// 加载PNG文件渲染器
 //@property (nonatomic, strong) MLMeshLoadTgaImageRenderer *render;// 加载TGA文件渲染器
 //@property (nonatomic, strong) MLMeshPyramidRenderer *render;// 金字塔渲染器(GLKit+Metal)
+@property (nonatomic, strong) MLMeshMultiFaceRenderer *render;// 3D扭曲渲染器2
 
 @end
 
@@ -127,15 +129,15 @@
     _mtkView = [[MTKView alloc] initWithFrame:self.bounds device:device];
     //判断是否设置成功
     NSAssert(_mtkView.device, @"Metal is not supported on this device");
-    _render = [[MLMeshMetalRender alloc] initWithMetalKitView:_mtkView meshBuffer:_buffer];//test
-//    _render = [[MLMeshLargeDataRenderer alloc] initWithMetalKitView:_mtkView];
+//    _render = [[MLMeshMultiFaceRenderer alloc] initWithMetalKitView:_mtkView meshBuffer:_buffer];//test
+    _render = [[MLMeshMultiFaceRenderer alloc] initWithMetalKitView:_mtkView];
     
     _mtkView.delegate = _render;
     //视图可以根据视图属性上设置帧速率(指定时间来调用drawInMTKView方法--视图需要渲染时调用)
     _mtkView.preferredFramesPerSecond = 60;
     
     //告知 mtkView 的大小（可省略这步）
-    [self.render mtkView:self.mtkView drawableSizeWillChange:self.mtkView.drawableSize];
+//    [self.render mtkView:self.mtkView drawableSizeWillChange:self.mtkView.drawableSize];
     
     [super addSubview:_mtkView];
     
@@ -227,6 +229,12 @@
             } else if ([self.render isKindOfClass:[MLMeshLargeDataRenderer class]]) {
                 MLMeshLargeDataRenderer *triangleRender = (MLMeshLargeDataRenderer *)self.render;
                 triangleRender.texture = mt_texture;
+            } else if ([self.render isKindOfClass:[MLMeshPyramidRenderer class]]) {
+                MLMeshPyramidRenderer *triangleRender = (MLMeshPyramidRenderer *)self.render;
+                triangleRender.texture = mt_texture;
+            } else if ([self.render isKindOfClass:[MLMeshMultiFaceRenderer class]]) {
+                MLMeshMultiFaceRenderer *meshRender = (MLMeshMultiFaceRenderer *)self.render;
+                meshRender.texture = mt_texture;
             }
             [self.mtkView setNeedsDisplay];
             

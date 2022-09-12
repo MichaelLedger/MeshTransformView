@@ -1,25 +1,31 @@
 //
-//  MLMeshPyramidRenderer.h
+//  MLMeshMultiFaceRenderer.h
 //  MLMeshTransformViewDemo
 //
-//  Created by Gavin Xiang on 2022/8/30.
+//  Created by Gavin Xiang on 2022/9/8.
 //  Copyright © 2022 Gavin Xiang. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "MLMeshBuffer.h"
 @import MetalKit;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MLMeshPyramidRenderer : NSObject<MTKViewDelegate>
+@interface MLMeshMultiFaceRenderer : NSObject<MTKViewDelegate>
 
 @property (nonatomic, assign) float rotationX;
 @property (nonatomic, assign) float rotationY;
 @property (nonatomic, assign) float rotationZ;
 
-@property (nonatomic, strong) id<MTLTexture> texture;// 纹理
+@property (nonatomic, strong, nullable) id<MTLTexture> texture;
+
+@property (nonatomic, strong) MLMeshBuffer *meshBuffer;
 
 - (id)initWithMetalKitView:(MTKView *)mtkView;
+
+-(id)initWithMetalKitView:(MTKView *)mtkView
+               meshBuffer:(MLMeshBuffer *)meshBuffer;
 
 @end
 

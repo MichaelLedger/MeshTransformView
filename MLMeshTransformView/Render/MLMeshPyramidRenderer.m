@@ -19,7 +19,7 @@
 @property (nonatomic, assign) vector_uint2 viewportSize;// 视口
 @property (nonatomic, strong) id<MTLRenderPipelineState> pipelineState;// 渲染管道
 @property (nonatomic, strong) id<MTLCommandQueue> commandQueue;// 命令队列
-@property (nonatomic, strong) id<MTLTexture> texture;// 纹理
+//@property (nonatomic, strong) id<MTLTexture> texture;// 纹理
 @property (nonatomic, strong) id<MTLBuffer> vertices;// 顶点缓存区
 @property (nonatomic, strong) id<MTLBuffer> indexs;// 索引缓存区
 @property (nonatomic, assign) NSUInteger indexCount;// 索引个数
