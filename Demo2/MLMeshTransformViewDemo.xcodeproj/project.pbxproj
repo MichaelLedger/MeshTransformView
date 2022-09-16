@@ -27,6 +27,7 @@
 		67A439E828D422D700D2898D /* Temple.obj in Resources */ = {isa = PBXBuildFile; fileRef = 67A439E428D422D700D2898D /* Temple.obj */; };
 		67A439E928D422D700D2898D /* StructureBaseColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 67A439E528D422D700D2898D /* StructureBaseColor.png */; };
 		67A439EA28D422D700D2898D /* Temple.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 67A439E628D422D700D2898D /* Temple.mtl */; };
+		67A43A0128D46BD600D2898D /* MLMeshShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67A43A0028D46BD600D2898D /* MLMeshShaders.metal */; };
 		67D4BAAB28B5CB2B0092E2A8 /* Alloy in Frameworks */ = {isa = PBXBuildFile; productRef = 67D4BAAA28B5CB2B0092E2A8 /* Alloy */; };
 		67D4BAAD28B5CD450092E2A8 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67D4BAAC28B5CD450092E2A8 /* Shaders.metal */; };
 		67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520BD28AE19BB00A6DFF6 /* MLMeshBuffer.m */; };
@@ -90,6 +91,7 @@
 		67A439E428D422D700D2898D /* Temple.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Temple.obj; sourceTree = "<group>"; };
 		67A439E528D422D700D2898D /* StructureBaseColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StructureBaseColor.png; sourceTree = "<group>"; };
 		67A439E628D422D700D2898D /* Temple.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Temple.mtl; sourceTree = "<group>"; };
+		67A43A0028D46BD600D2898D /* MLMeshShaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = MLMeshShaders.metal; sourceTree = "<group>"; };
 		67BDA22A28ACD522009CE82E /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		67D4BAAC28B5CD450092E2A8 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshMetalRender.m; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				67A439D828D41DF900D2898D /* AAPLShaders.metal */,
 				67A439D728D41DF900D2898D /* AAPLShaderTypes.h */,
 				67A439DB28D41E3A00D2898D /* AAPLCommonDefinitions.h */,
+				67A43A0028D46BD600D2898D /* MLMeshShaders.metal */,
 			);
 			name = Shaders;
 			path = ../../Shaders;
@@ -421,6 +424,7 @@
 				67D4BAAD28B5CD450092E2A8 /* Shaders.metal in Sources */,
 				67D520DD28AE32E600A6DFF6 /* MLMeshTransform.mm in Sources */,
 				67A439D628D41DE800D2898D /* AAPLMetalRenderer.m in Sources */,
+				67A43A0128D46BD600D2898D /* MLMeshShaders.metal in Sources */,
 				67D520DA28AE32E600A6DFF6 /* MLMeshTexture.m in Sources */,
 				6753902E28BDC59E006F1A18 /* MLMeshPyramidRenderer.m in Sources */,
 				67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */,

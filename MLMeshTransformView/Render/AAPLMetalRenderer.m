@@ -23,15 +23,15 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
 @implementation AAPLMetalRenderer
 {
     dispatch_semaphore_t _inFlightSemaphore;
-    id<MTLDevice>        _device;
+//    id<MTLDevice>        _device;
     id<MTLCommandQueue>  _commandQueue;
 
     id<MTLDepthStencilState>   _depthState;
 
-    // Metal objects you use to render the temple mesh.
-    id<MTLRenderPipelineState>     _templeRenderPipeline;
-    id<MTLBuffer>                  _templeVertexPositions;
-    id<MTLBuffer>                  _templeVertexGenerics;
+//    // Metal objects you use to render the temple mesh.
+//    id<MTLRenderPipelineState>     _templeRenderPipeline;
+//    id<MTLBuffer>                  _templeVertexPositions;
+//    id<MTLBuffer>                  _templeVertexGenerics;
 
     // Arrays of submesh index buffers and textures for the temple mesh.
     NSMutableArray<id<MTLBuffer>>  *_templeIndexBuffers;
@@ -112,7 +112,7 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
 - (BOOL) buildTempleObjects
 {
     NSError *error;
-
+    
     NSURL *modelFileURL = [[NSBundle mainBundle] URLForResource:@"Temple"
                                                   withExtension:@"obj"];
 
@@ -452,163 +452,174 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
 /// Called whenever the view needs to render.
 - (void) drawInMTKView:(nonnull MTKView *)view
 {
-    // Wait to ensure only a maximum of `AAPLMaxBuffersInFlight` frames are being processed by any
-    // stage in the Metal pipeline (e.g. app, Metal, drivers, GPU, etc.) at any time. This mechanism
-    // prevents the CPU from overwriting dynamic buffer data before the GPU has read it.
-    dispatch_semaphore_wait(_inFlightSemaphore, DISPATCH_TIME_FOREVER);
+    @autoreleasepool {
+        // Wait to ensure only a maximum of `AAPLMaxBuffersInFlight` frames are being processed by any
+        // stage in the Metal pipeline (e.g. app, Metal, drivers, GPU, etc.) at any time. This mechanism
+        // prevents the CPU from overwriting dynamic buffer data before the GPU has read it.
+        dispatch_semaphore_wait(_inFlightSemaphore, DISPATCH_TIME_FOREVER);
+        
+//        view.clearColor = MTLClearColorMake(1, 1, 1, 1);//white
 
-    [self updateFrameState];
-    id<MTLCommandBuffer> commandBuffer;
+        [self updateFrameState];//test
+        id<MTLCommandBuffer> commandBuffer;
 
-#if RENDER_REFLECTION
+    #if RENDER_REFLECTION
 
-    commandBuffer = [_commandQueue commandBuffer];
-    commandBuffer.label = @"Reflections Command Buffer";
+        commandBuffer = [_commandQueue commandBuffer];
+        commandBuffer.label = @"Reflections Command Buffer";
 
-    id<MTLRenderCommandEncoder> renderEncoder =
-        [commandBuffer renderCommandEncoderWithDescriptor:_reflectionRenderPassDescriptor];
-    renderEncoder.label = @"Reflection Render Encoder";
+        MTLRenderPassDescriptor *renderPassDescriptor = view.currentRenderPassDescriptor;
+        if (renderPassDescriptor != nil) {
+            id<MTLRenderCommandEncoder> renderEncoder =
+                [commandBuffer renderCommandEncoderWithDescriptor:_reflectionRenderPassDescriptor];
+            renderEncoder.label = @"Reflection Render Encoder";
 
-    // Set the render pipeline state.
-    //[renderEncoder setCullMode:MTLCullModeBack];
-    [renderEncoder setRenderPipelineState:_templeRenderPipeline];
-    [renderEncoder setDepthStencilState:_depthState];
+            // Set the render pipeline state.
+//            [renderEncoder setCullMode:MTLCullModeBack];
+            [renderEncoder setRenderPipelineState:_templeRenderPipeline];
+            [renderEncoder setDepthStencilState:_depthState];
 
-    // Set any buffers fed into the render pipeline when a draw executes.
-    [renderEncoder setVertexBuffer:_dynamicDataBuffers[_currentBufferIndex]
-                            offset:0
-                           atIndex:AAPLBufferIndexUniforms];
+            // Set any buffers fed into the render pipeline when a draw executes.
+            [renderEncoder setVertexBuffer:_dynamicDataBuffers[_currentBufferIndex]
+                                    offset:0
+                                   atIndex:AAPLBufferIndexUniforms];
 
-    [renderEncoder setVertexBuffer:_templeVertexPositions
-                            offset:0
-                           atIndex:AAPLBufferIndexMeshPositions];
+            [renderEncoder setVertexBuffer:_templeVertexPositions
+                                    offset:0
+                                   atIndex:AAPLBufferIndexMeshPositions];
 
-    [renderEncoder setVertexBuffer:_templeVertexGenerics
-                            offset:0
-                           atIndex:AAPLBufferIndexMeshGenerics];
+            [renderEncoder setVertexBuffer:_templeVertexGenerics
+                                    offset:0
+                                   atIndex:AAPLBufferIndexMeshGenerics];
 
-    [renderEncoder setVertexBytes:&_templeReflectionMVPMatrix
-                           length:sizeof(_templeReflectionMVPMatrix)
-                          atIndex:AAPLBufferIndexMVPMatrix];
+            [renderEncoder setVertexBytes:&_templeReflectionMVPMatrix
+                                   length:sizeof(_templeReflectionMVPMatrix)
+                                  atIndex:AAPLBufferIndexMVPMatrix];
+            
+            //test
+//            [renderEncoder setFragmentTexture:_texture
+//                                      atIndex:AAPLTextureIndexBaseColor];
 
-    for(NSUInteger index = 0; index < _templeIndexBuffers.count; index++)
-    {
-        // Set any textures read or sampled from the render pipeline.
-        [renderEncoder setFragmentTexture:_templeTextures[index]
-                                  atIndex:AAPLTextureIndexBaseColor];
+            for(NSUInteger index = 0; index < _templeIndexBuffers.count; index++)
+            {
+                // Set any textures read or sampled from the render pipeline.
+                [renderEncoder setFragmentTexture:_templeTextures[index]
+                                          atIndex:AAPLTextureIndexBaseColor];
+    
+                NSUInteger indexCount = _templeIndexBuffers[index].length / sizeof(uint32_t);
+    
+                // Draw the submesh.
+                [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
+                                          indexCount:indexCount
+                                           indexType:MTLIndexTypeUInt32
+                                         indexBuffer:_templeIndexBuffers[index]
+                                   indexBufferOffset:0];
+            }
 
-        NSUInteger indexCount = _templeIndexBuffers[index].length / sizeof(uint32_t);
-
-        // Draw the submesh.
-        [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
-                                  indexCount:indexCount
-                                   indexType:MTLIndexTypeUInt32
-                                 indexBuffer:_templeIndexBuffers[index]
-                           indexBufferOffset:0];
-    }
-
-    [renderEncoder endEncoding];
-
-    [commandBuffer commit];
-
-#endif
-
-    // Create a new command buffer to render to the drawable.
-    commandBuffer = [_commandQueue commandBuffer];
-    commandBuffer.label = @"Drawable Command Buffer";
-
-    // Add a completion hander that signals `_inFlightSemaphore` when Metal and the GPU have fully
-    // finished processing the commands encoded this frame. This indicates that the dynamic bufers,
-    // written to this frame, are no longer be needed by Metal or the GPU, meaning that you can
-    // change the buffer contents without corrupting any rendering.
-    __block dispatch_semaphore_t block_sema = _inFlightSemaphore;
-    [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> buffer)
-    {
-        dispatch_semaphore_signal(block_sema);
-    }];
-
-    // Obtain a render pass descriptor generated from the view's drawable textures.
-    MTLRenderPassDescriptor *drawableRenderPassDescriptor = view.currentRenderPassDescriptor;
-
-    // If you obtained a valid render pass descriptor, render to the drawable. Otherwise, skip
-    // any rendering for this frame because there is no drawable to draw to.
-    if(drawableRenderPassDescriptor != nil)
-    {
-        id<MTLRenderCommandEncoder> renderEncoder =
-            [commandBuffer renderCommandEncoderWithDescriptor:drawableRenderPassDescriptor];
-        renderEncoder.label = @"Drawable Render Encoder";
-
-        // Set the render pipeline state.
-        //  [renderEncoder setCullMode:MTLCullModeBack];
-        [renderEncoder setRenderPipelineState:_templeRenderPipeline];
-        [renderEncoder setDepthStencilState:_depthState];
-
-        // Set any buffers fed into the render pipeline when a draw executes.
-        [renderEncoder setVertexBuffer:_dynamicDataBuffers[_currentBufferIndex]
-                                offset:0
-                               atIndex:AAPLBufferIndexUniforms];
-
-        [renderEncoder setFragmentBuffer:_dynamicDataBuffers[_currentBufferIndex]
-                                  offset:0
-                                 atIndex:AAPLBufferIndexUniforms];
-
-        [renderEncoder setVertexBuffer:_templeVertexPositions
-                                offset:0
-                               atIndex:AAPLBufferIndexMeshPositions];
-
-        [renderEncoder setVertexBuffer:_templeVertexGenerics
-                                offset:0
-                               atIndex:AAPLBufferIndexMeshGenerics];
-
-        [renderEncoder setVertexBytes:&_templeCameraMVPMatrix
-                               length:sizeof(_templeCameraMVPMatrix)
-                              atIndex:AAPLBufferIndexMVPMatrix];
-
-        for(NSUInteger index = 0; index < _templeIndexBuffers.count; index++)
-        {
-            // Set any textures read or sampled from the render pipeline.
-            [renderEncoder setFragmentTexture:_templeTextures[index]
-                                      atIndex:AAPLTextureIndexBaseColor];
-
-            NSUInteger indexCount = _templeIndexBuffers[index].length / sizeof(uint32_t);
-
-            // Draw the submesh.
-            [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
-                                      indexCount:indexCount
-                                       indexType:MTLIndexTypeUInt32
-                                     indexBuffer:_templeIndexBuffers[index]
-                               indexBufferOffset:0];
+            [renderEncoder endEncoding];
         }
 
-#if RENDER_REFLECTION
-        // Set the state for the reflective quad and draw it.
-        [renderEncoder setRenderPipelineState:_quadRenderPipeline];
+        [commandBuffer commit];
 
-        [renderEncoder setVertexBytes:&_reflectionQuadMVPMatrix
-                               length:sizeof(_reflectionQuadMVPMatrix)
-                              atIndex:AAPLBufferIndexMVPMatrix];
+    #endif
 
-        [renderEncoder setVertexBuffer:_reflectionQuadBuffer
-                                offset:0
-                               atIndex:AAPLBufferIndexMeshPositions];
+        // Create a new command buffer to render to the drawable.
+        commandBuffer = [_commandQueue commandBuffer];
+        commandBuffer.label = @"Drawable Command Buffer";
 
-        [renderEncoder setFragmentTexture:_reflectionColorTexture
-                                  atIndex:AAPLTextureIndexBaseColor];
+        // Add a completion hander that signals `_inFlightSemaphore` when Metal and the GPU have fully
+        // finished processing the commands encoded this frame. This indicates that the dynamic bufers,
+        // written to this frame, are no longer be needed by Metal or the GPU, meaning that you can
+        // change the buffer contents without corrupting any rendering.
+        __block dispatch_semaphore_t block_sema = _inFlightSemaphore;
+        [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> buffer)
+        {
+            dispatch_semaphore_signal(block_sema);
+        }];
 
-        [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle
-                          vertexStart:0
-                          vertexCount:6];
-#endif
+        // Obtain a render pass descriptor generated from the view's drawable textures.
+        MTLRenderPassDescriptor *drawableRenderPassDescriptor = view.currentRenderPassDescriptor;
 
-        // End encoding commands.
-        [renderEncoder endEncoding];
+        // If you obtained a valid render pass descriptor, render to the drawable. Otherwise, skip
+        // any rendering for this frame because there is no drawable to draw to.
+        if(drawableRenderPassDescriptor != nil)
+        {
+            id<MTLRenderCommandEncoder> renderEncoder =
+                [commandBuffer renderCommandEncoderWithDescriptor:drawableRenderPassDescriptor];
+            renderEncoder.label = @"Drawable Render Encoder";
 
-        // Schedule a drawable presentation to occur after the framebuffer is complete.
-        [commandBuffer presentDrawable:view.currentDrawable];
+            // Set the render pipeline state.
+            //  [renderEncoder setCullMode:MTLCullModeBack];
+            [renderEncoder setRenderPipelineState:_templeRenderPipeline];
+            [renderEncoder setDepthStencilState:_depthState];
+
+            // Set any buffers fed into the render pipeline when a draw executes.
+            [renderEncoder setVertexBuffer:_dynamicDataBuffers[_currentBufferIndex]
+                                    offset:0
+                                   atIndex:AAPLBufferIndexUniforms];
+
+            [renderEncoder setFragmentBuffer:_dynamicDataBuffers[_currentBufferIndex]
+                                      offset:0
+                                     atIndex:AAPLBufferIndexUniforms];
+
+            [renderEncoder setVertexBuffer:_templeVertexPositions
+                                    offset:0
+                                   atIndex:AAPLBufferIndexMeshPositions];
+
+            [renderEncoder setVertexBuffer:_templeVertexGenerics
+                                    offset:0
+                                   atIndex:AAPLBufferIndexMeshGenerics];
+
+            [renderEncoder setVertexBytes:&_templeCameraMVPMatrix
+                                   length:sizeof(_templeCameraMVPMatrix)
+                                  atIndex:AAPLBufferIndexMVPMatrix];
+
+            for(NSUInteger index = 0; index < _templeIndexBuffers.count; index++)
+            {
+                // Set any textures read or sampled from the render pipeline.
+                [renderEncoder setFragmentTexture:_templeTextures[index]
+                                          atIndex:AAPLTextureIndexBaseColor];
+
+                NSUInteger indexCount = _templeIndexBuffers[index].length / sizeof(uint32_t);
+
+                // Draw the submesh.
+                [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
+                                          indexCount:indexCount
+                                           indexType:MTLIndexTypeUInt32
+                                         indexBuffer:_templeIndexBuffers[index]
+                                   indexBufferOffset:0];
+            }
+
+    #if RENDER_REFLECTION
+            // Set the state for the reflective quad and draw it.
+            [renderEncoder setRenderPipelineState:_quadRenderPipeline];
+
+            [renderEncoder setVertexBytes:&_reflectionQuadMVPMatrix
+                                   length:sizeof(_reflectionQuadMVPMatrix)
+                                  atIndex:AAPLBufferIndexMVPMatrix];
+
+            [renderEncoder setVertexBuffer:_reflectionQuadBuffer
+                                    offset:0
+                                   atIndex:AAPLBufferIndexMeshPositions];
+
+            [renderEncoder setFragmentTexture:_reflectionColorTexture
+                                      atIndex:AAPLTextureIndexBaseColor];
+
+            [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle
+                              vertexStart:0
+                              vertexCount:6];
+    #endif
+
+            // End encoding commands.
+            [renderEncoder endEncoding];
+
+            // Schedule a drawable presentation to occur after the framebuffer is complete.
+            [commandBuffer presentDrawable:view.currentDrawable];
+        }
+
+        // Finalize rendering and submit the command buffer to the GPU.
+        [commandBuffer commit];
     }
-
-    // Finalize rendering and submit the command buffer to the GPU.
-    [commandBuffer commit];
 }
 
 @end

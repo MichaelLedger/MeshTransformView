@@ -1,3 +1,34 @@
+```
+struct AAPLVertexData
+{
+    vector_float3 position;
+    vector_float3 normal;
+    vector_float2 texcoord;
+};
+```
+
+```
+typedef struct BCVertex {
+    GLKVector3 position;
+    GLKVector3 normal;
+    GLKVector2 uv;
+} BCVertex;
+```
+
+/*
+MDLVertexDescriptor is an interface that is located in Model I/O framework.
+
+MTLVertexDescriptor is an interface that is located in Metal framework.
+
+Even though both of them are a similar concept (a description of how vertex data is laid out), they need to be separate for the following reasons.
+
+First of all, you can link against both of aforementioned frameworks, but you are not required to use either one of them.
+
+For example, let's say I need to write an app that loads a model and draws it, but I don't want to learn Metal, so I just stick to OpenGL. And Model I/O framework suits my needs. In this case, I would link against Model I/O and OpenGL, but not Metal, so I won't have MTLVertexDescriptor.
+*/
+
+[What's the difference between MDLVertexDescriptor and MTLVertexDescriptor?](https://stackoverflow.com/questions/55327275/whats-the-difference-between-mdlvertexdescriptor-and-mtlvertexdescriptor)
+
 # Mesh Transforms
 [iOS - runtime headers](https://github.com/nst/iOS-Runtime-Headers)
 
@@ -6,6 +37,24 @@
 [BCMeshTransformView](https://github.com/Ciechan/BCMeshTransformView)
 
 #  How to convert OpenGL to Metal
+
+[Apple Developer - Metal](https://developer.apple.com/metal/)
+
+[Apple Metal Sample Code](https://developer.apple.com/metal/sample-code/)
+
+[WWDC Video - Transform your geometry with Metal mesh shaders](https://developer.apple.com/videos/play/wwdc2022/10162/)
+/*
+Configure the sample code project
+To run this sample, you need Xcode 14 or later, and a physical device that supports MTLGPUFamilyMac2 or MTLGPUFamilyApple7, such as:
+A Mac running macOS 13 or later
+An iOS device with an A15 chip or later running iOS 16 or later
+This sample can only run on a physical device because it uses Metal’s mesh shader features, which Simulator doesn’t support.
+*/
+[Apple Sample Code - Adjusting the level of detail using Metal mesh shaders](https://developer.apple.com/documentation/metal/metal_sample_code_library/adjusting_the_level_of_detail_using_metal_mesh_shaders?language=objc)
+
+[OpenGL - Advanced Data](https://learnopengl.com/Advanced-OpenGL/Advanced-Data)
+
+[OpenGLES is deprecated and is not available when building for Mac Catalyst.](https://developer.apple.com/forums/thread/126450)
 
 /*
 三维建模 纹理坐标通常具有U和V两个坐标轴，因此称之为UV坐标。U代表横向坐标上的分布、V代表纵向坐标上的分布。

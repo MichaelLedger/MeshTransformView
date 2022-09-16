@@ -183,8 +183,12 @@
 {
     _presentationMeshTransform = [presentationMeshTransform copy];
     
-    [self.buffer fillWithMeshTransform:presentationMeshTransform
-                         positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]];
+//    [self.buffer fillWithMeshTransform:presentationMeshTransform
+//                         positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]];
+     //test
+//    [self.buffer fillWithMeshTransform:presentationMeshTransform
+//                         positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]
+//                                render:self.render];
     [self.mtkView setNeedsDisplay];
 }
 
@@ -230,8 +234,11 @@
                 MLMeshLargeDataRenderer *triangleRender = (MLMeshLargeDataRenderer *)self.render;
                 triangleRender.texture = mt_texture;
             } else if ([self.render isKindOfClass:[MLMeshPyramidRenderer class]]) {
-                MLMeshPyramidRenderer *triangleRender = (MLMeshPyramidRenderer *)self.render;
-                triangleRender.texture = mt_texture;
+                MLMeshPyramidRenderer *pyramidRender = (MLMeshPyramidRenderer *)self.render;
+                pyramidRender.texture = mt_texture;
+            } else if ([self.render isKindOfClass:[AAPLMetalRenderer class]]) {
+                AAPLMetalRenderer *metalRender = (AAPLMetalRenderer *)self.render;
+                metalRender.texture = mt_texture;
             }
             [self.mtkView setNeedsDisplay];
             
