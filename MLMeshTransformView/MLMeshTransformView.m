@@ -25,7 +25,7 @@
 #import "MLMeshLoadPngImageRenderer.h"
 #import "MLMeshLoadTgaImageRenderer.h"
 #import "MLMeshPyramidRenderer.h"
-#import "MLMeshMultiFaceRenderer.h"
+#import "AAPLMetalRenderer.h"
 
 @interface MLMeshTransformView()
 
@@ -49,7 +49,7 @@
 //@property (nonatomic, strong) MLMeshLoadPngImageRenderer *render;// 加载PNG文件渲染器
 //@property (nonatomic, strong) MLMeshLoadTgaImageRenderer *render;// 加载TGA文件渲染器
 //@property (nonatomic, strong) MLMeshPyramidRenderer *render;// 金字塔渲染器(GLKit+Metal)
-@property (nonatomic, strong) MLMeshMultiFaceRenderer *render;// 3D扭曲渲染器2
+@property (nonatomic, strong) AAPLMetalRenderer *render;// 3D模型渲染器(UV)
 
 @end
 
@@ -129,8 +129,8 @@
     _mtkView = [[MTKView alloc] initWithFrame:self.bounds device:device];
     //判断是否设置成功
     NSAssert(_mtkView.device, @"Metal is not supported on this device");
-//    _render = [[MLMeshMultiFaceRenderer alloc] initWithMetalKitView:_mtkView meshBuffer:_buffer];//test
-    _render = [[MLMeshMultiFaceRenderer alloc] initWithMetalKitView:_mtkView];
+//    _render = [[MLMeshPyramidRenderer alloc] initWithMetalKitView:_mtkView meshBuffer:_buffer];//test
+    _render = [[AAPLMetalRenderer alloc] initWithMetalKitView:_mtkView];
     
     _mtkView.delegate = _render;
     //视图可以根据视图属性上设置帧速率(指定时间来调用drawInMTKView方法--视图需要渲染时调用)
@@ -232,9 +232,6 @@
             } else if ([self.render isKindOfClass:[MLMeshPyramidRenderer class]]) {
                 MLMeshPyramidRenderer *triangleRender = (MLMeshPyramidRenderer *)self.render;
                 triangleRender.texture = mt_texture;
-            } else if ([self.render isKindOfClass:[MLMeshMultiFaceRenderer class]]) {
-                MLMeshMultiFaceRenderer *meshRender = (MLMeshMultiFaceRenderer *)self.render;
-                meshRender.texture = mt_texture;
             }
             [self.mtkView setNeedsDisplay];
             

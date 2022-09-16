@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6712627B28C9EF3100DB6E46 /* MLMeshMultiFaceRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6712627A28C9EF3100DB6E46 /* MLMeshMultiFaceRenderer.m */; };
 		6753901928BDA548006F1A18 /* MLMeshTriangleRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6753901828BDA548006F1A18 /* MLMeshTriangleRenderer.m */; };
 		6753901D28BDB145006F1A18 /* MLMeshLargeDataRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6753901C28BDB145006F1A18 /* MLMeshLargeDataRenderer.m */; };
 		6753902028BDBB0F006F1A18 /* MLMeshLoadPngImageRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6753901F28BDBB0F006F1A18 /* MLMeshLoadPngImageRenderer.m */; };
@@ -20,6 +19,14 @@
 		6767F37B28C46B040010EA25 /* MLMeshMetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6753901428BC543F006F1A18 /* MLMeshMetalRenderer.swift */; };
 		6767F37C28C46CBA0010EA25 /* MLMeshMetalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */; };
 		6769DB49263AAC09000A3554 /* MLSplitSkewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6769DB48263AAC09000A3554 /* MLSplitSkewViewController.m */; };
+		67A439D628D41DE800D2898D /* AAPLMetalRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 67A439D428D41DE700D2898D /* AAPLMetalRenderer.m */; };
+		67A439D928D41DF900D2898D /* AAPLShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67A439D828D41DF900D2898D /* AAPLShaders.metal */; };
+		67A439E028D41E3A00D2898D /* AAPLMathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 67A439DC28D41E3A00D2898D /* AAPLMathUtilities.m */; };
+		67A439E128D41E3A00D2898D /* AAPLMeshData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A439DD28D41E3A00D2898D /* AAPLMeshData.mm */; };
+		67A439E728D422D700D2898D /* FoliageBaseColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 67A439E328D422D700D2898D /* FoliageBaseColor.png */; };
+		67A439E828D422D700D2898D /* Temple.obj in Resources */ = {isa = PBXBuildFile; fileRef = 67A439E428D422D700D2898D /* Temple.obj */; };
+		67A439E928D422D700D2898D /* StructureBaseColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 67A439E528D422D700D2898D /* StructureBaseColor.png */; };
+		67A439EA28D422D700D2898D /* Temple.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 67A439E628D422D700D2898D /* Temple.mtl */; };
 		67D4BAAB28B5CB2B0092E2A8 /* Alloy in Frameworks */ = {isa = PBXBuildFile; productRef = 67D4BAAA28B5CB2B0092E2A8 /* Alloy */; };
 		67D4BAAD28B5CD450092E2A8 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67D4BAAC28B5CD450092E2A8 /* Shaders.metal */; };
 		67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D520BD28AE19BB00A6DFF6 /* MLMeshBuffer.m */; };
@@ -49,8 +56,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6712627928C9EF3100DB6E46 /* MLMeshMultiFaceRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLMeshMultiFaceRenderer.h; sourceTree = "<group>"; };
-		6712627A28C9EF3100DB6E46 /* MLMeshMultiFaceRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLMeshMultiFaceRenderer.m; sourceTree = "<group>"; };
 		6753901328BC543E006F1A18 /* MLMeshTransformViewDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MLMeshTransformViewDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		6753901428BC543F006F1A18 /* MLMeshMetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLMeshMetalRenderer.swift; sourceTree = "<group>"; };
 		6753901628BD9E0B006F1A18 /* MLShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLShaderTypes.h; sourceTree = "<group>"; };
@@ -72,6 +77,19 @@
 		6755C4682655E6D800D00E37 /* strawberry.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = strawberry.jpeg; sourceTree = "<group>"; };
 		6769DB47263AAC09000A3554 /* MLSplitSkewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSplitSkewViewController.h; sourceTree = "<group>"; };
 		6769DB48263AAC09000A3554 /* MLSplitSkewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLSplitSkewViewController.m; sourceTree = "<group>"; };
+		67A439D428D41DE700D2898D /* AAPLMetalRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLMetalRenderer.m; sourceTree = "<group>"; };
+		67A439D528D41DE800D2898D /* AAPLMetalRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLMetalRenderer.h; sourceTree = "<group>"; };
+		67A439D728D41DF900D2898D /* AAPLShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLShaderTypes.h; sourceTree = "<group>"; };
+		67A439D828D41DF900D2898D /* AAPLShaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = AAPLShaders.metal; sourceTree = "<group>"; };
+		67A439DB28D41E3A00D2898D /* AAPLCommonDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLCommonDefinitions.h; sourceTree = "<group>"; };
+		67A439DC28D41E3A00D2898D /* AAPLMathUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLMathUtilities.m; sourceTree = "<group>"; };
+		67A439DD28D41E3A00D2898D /* AAPLMeshData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AAPLMeshData.mm; sourceTree = "<group>"; };
+		67A439DE28D41E3A00D2898D /* AAPLMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLMathUtilities.h; sourceTree = "<group>"; };
+		67A439DF28D41E3A00D2898D /* AAPLMeshData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLMeshData.h; sourceTree = "<group>"; };
+		67A439E328D422D700D2898D /* FoliageBaseColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FoliageBaseColor.png; sourceTree = "<group>"; };
+		67A439E428D422D700D2898D /* Temple.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Temple.obj; sourceTree = "<group>"; };
+		67A439E528D422D700D2898D /* StructureBaseColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StructureBaseColor.png; sourceTree = "<group>"; };
+		67A439E628D422D700D2898D /* Temple.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Temple.mtl; sourceTree = "<group>"; };
 		67BDA22A28ACD522009CE82E /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		67D4BAAC28B5CD450092E2A8 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		67D520BA28AE19BB00A6DFF6 /* MLMeshMetalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMeshMetalRender.m; sourceTree = "<group>"; };
@@ -156,10 +174,32 @@
 				6753902528BDC0C2006F1A18 /* MLMeshLoadTgaImageRenderer.m */,
 				6753902C28BDC59E006F1A18 /* MLMeshPyramidRenderer.h */,
 				6753902D28BDC59E006F1A18 /* MLMeshPyramidRenderer.m */,
-				6712627928C9EF3100DB6E46 /* MLMeshMultiFaceRenderer.h */,
-				6712627A28C9EF3100DB6E46 /* MLMeshMultiFaceRenderer.m */,
+				67A439D528D41DE800D2898D /* AAPLMetalRenderer.h */,
+				67A439D428D41DE700D2898D /* AAPLMetalRenderer.m */,
 			);
 			path = Render;
+			sourceTree = "<group>";
+		};
+		67A439DA28D41E1B00D2898D /* AAPL */ = {
+			isa = PBXGroup;
+			children = (
+				67A439DE28D41E3A00D2898D /* AAPLMathUtilities.h */,
+				67A439DC28D41E3A00D2898D /* AAPLMathUtilities.m */,
+				67A439DF28D41E3A00D2898D /* AAPLMeshData.h */,
+				67A439DD28D41E3A00D2898D /* AAPLMeshData.mm */,
+			);
+			path = AAPL;
+			sourceTree = "<group>";
+		};
+		67A439E228D422D700D2898D /* Meshes */ = {
+			isa = PBXGroup;
+			children = (
+				67A439E328D422D700D2898D /* FoliageBaseColor.png */,
+				67A439E428D422D700D2898D /* Temple.obj */,
+				67A439E528D422D700D2898D /* StructureBaseColor.png */,
+				67A439E628D422D700D2898D /* Temple.mtl */,
+			);
+			path = Meshes;
 			sourceTree = "<group>";
 		};
 		67D4BAA028B5C5950092E2A8 /* Shaders */ = {
@@ -167,6 +207,9 @@
 			children = (
 				67D4BAAC28B5CD450092E2A8 /* Shaders.metal */,
 				6753901628BD9E0B006F1A18 /* MLShaderTypes.h */,
+				67A439D828D41DF900D2898D /* AAPLShaders.metal */,
+				67A439D728D41DF900D2898D /* AAPLShaderTypes.h */,
+				67A439DB28D41E3A00D2898D /* AAPLCommonDefinitions.h */,
 			);
 			name = Shaders;
 			path = ../../Shaders;
@@ -176,6 +219,8 @@
 			isa = PBXGroup;
 			children = (
 				6753901A28BDA551006F1A18 /* Render */,
+				67A439DA28D41E1B00D2898D /* AAPL */,
+				67A439E228D422D700D2898D /* Meshes */,
 				67D520C228AE1C8D00A6DFF6 /* README.md */,
 				67D520C428AE2D7200A6DFF6 /* mtktypes.h */,
 				67D520C328AE1E4200A6DFF6 /* MTKVector3.h */,
@@ -351,8 +396,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67A439E928D422D700D2898D /* StructureBaseColor.png in Resources */,
+				67A439E728D422D700D2898D /* FoliageBaseColor.png in Resources */,
 				6755C4692655E6D800D00E37 /* strawberry.jpeg in Resources */,
+				67A439E828D422D700D2898D /* Temple.obj in Resources */,
 				9819A66E192010DB00769705 /* Images.xcassets in Resources */,
+				67A439EA28D422D700D2898D /* Temple.mtl in Resources */,
 				9819A64619200BC400769705 /* picture@2x.jpg in Resources */,
 				6753902B28BDC242006F1A18 /* TGAImg.tga in Resources */,
 				9819A5E41920020400769705 /* InfoPlist.strings in Resources */,
@@ -368,8 +417,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67A439D928D41DF900D2898D /* AAPLShaders.metal in Sources */,
 				67D4BAAD28B5CD450092E2A8 /* Shaders.metal in Sources */,
 				67D520DD28AE32E600A6DFF6 /* MLMeshTransform.mm in Sources */,
+				67A439D628D41DE800D2898D /* AAPLMetalRenderer.m in Sources */,
 				67D520DA28AE32E600A6DFF6 /* MLMeshTexture.m in Sources */,
 				6753902E28BDC59E006F1A18 /* MLMeshPyramidRenderer.m in Sources */,
 				67D520C028AE19BB00A6DFF6 /* MLMeshBuffer.m in Sources */,
@@ -382,13 +433,14 @@
 				9819A6411920072800769705 /* MLDemoTableViewController.m in Sources */,
 				9819A6161920036500769705 /* MLDemoViewController.m in Sources */,
 				6753902628BDC0C3006F1A18 /* MLMeshLoadTgaImageRenderer.m in Sources */,
+				67A439E028D41E3A00D2898D /* AAPLMathUtilities.m in Sources */,
 				67D520DE28AE32E600A6DFF6 /* MLMeshTransformAnimation.m in Sources */,
 				6753901928BDA548006F1A18 /* MLMeshTriangleRenderer.m in Sources */,
 				985F8D94192297340090D0D7 /* MLJellyDemoViewController.m in Sources */,
 				9819A5E61920020400769705 /* main.m in Sources */,
 				6753902028BDBB0F006F1A18 /* MLMeshLoadPngImageRenderer.m in Sources */,
-				6712627B28C9EF3100DB6E46 /* MLMeshMultiFaceRenderer.m in Sources */,
 				6753901D28BDB145006F1A18 /* MLMeshLargeDataRenderer.m in Sources */,
+				67A439E128D41E3A00D2898D /* AAPLMeshData.mm in Sources */,
 				67D520D928AE32E600A6DFF6 /* MLMeshTransform+Interpolation.m in Sources */,
 				6767F37B28C46B040010EA25 /* MLMeshMetalRenderer.swift in Sources */,
 				6769DB49263AAC09000A3554 /* MLSplitSkewViewController.m in Sources */,

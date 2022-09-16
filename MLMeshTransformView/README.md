@@ -1,9 +1,19 @@
 # Mesh Transforms
+[iOS - runtime headers](https://github.com/nst/iOS-Runtime-Headers)
+
 [Mesh Transforms](https://ciechanow.ski/mesh-transforms/)
 
 [BCMeshTransformView](https://github.com/Ciechan/BCMeshTransformView)
 
 #  How to convert OpenGL to Metal
+
+/*
+三维建模 纹理坐标通常具有U和V两个坐标轴，因此称之为UV坐标。U代表横向坐标上的分布、V代表纵向坐标上的分布。
+UV mapping is the 3D modeling process of projecting a 2D image onto a 3D model’s surface. The term “UV” refers to the bidimensional (2D) nature of the process: the letters “U” and “V” denote the axes of the 2D texture because “X”, “Y” and “Z” are already used to denote the axes of the 3D model.
+*/
+[Textures & UV maps](https://www.raywenderlich.com/books/metal-by-tutorials/v2.0/chapters/6-textures#toc-chapter-009-anchor-001)
+
+[3D Models](https://www.raywenderlich.com/books/metal-by-tutorials/v2.0/chapters/2-3d-models)
 
 [Apple - Migrating OpenGL Code to Metal](https://developer.apple.com/documentation/metal/metal_sample_code_library/migrating_opengl_code_to_metal?language=objc)
 
