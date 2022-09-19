@@ -119,7 +119,7 @@ reflectionQuadFragmentShader(QuadShaderInOut in [[stage_in]],
 
     const float4 reflectionSample = reflectionMap.sample(linearSampler, in.texCoord.xy);
 
-    const float4 tintColor = {0, 0, 1, 0};
+    const float4 tintColor = {0, 0, 0, 0};//{0, 0, 1, 0}
     const float  tintFactor = 0.02;
 
     // Add a blue tint to the reflection.

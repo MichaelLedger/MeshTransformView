@@ -130,7 +130,14 @@
     //判断是否设置成功
     NSAssert(_mtkView.device, @"Metal is not supported on this device");
 //    _render = [[MLMeshPyramidRenderer alloc] initWithMetalKitView:_mtkView meshBuffer:_buffer];//test
-    _render = [[AAPLMetalRenderer alloc] initWithMetalKitView:_mtkView];
+    
+//    if (self.presentationMeshTransform == nil) {
+//        self.presentationMeshTransform = [MLMutableMeshTransform identityMeshTransformWithNumberOfRows:1 numberOfColumns:1];
+//    }
+    _render = [[AAPLMetalRenderer alloc] initWithMetalKitView:_mtkView
+                                                   meshBuffer:_buffer
+                                                meshTransform:self.presentationMeshTransform
+                                                positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]];
     
     _mtkView.delegate = _render;
     //视图可以根据视图属性上设置帧速率(指定时间来调用drawInMTKView方法--视图需要渲染时调用)
@@ -167,7 +174,7 @@
     self.dummyAnimationView.layer.opacity = 0.0;
     CAAnimation *animation = [self.dummyAnimationView.layer animationForKey:@"opacity"];
     
-    if ([animation isKindOfClass:[CABasicAnimation class]]) {
+    if (animation != nil && [animation isKindOfClass:[CABasicAnimation class]]) {
         [self setAnimation:[[MLMeshTransformAnimation alloc] initWithAnimation:animation
                                                               currentTransform:self.presentationMeshTransform
                                                           destinationTransform:meshTransform]];
@@ -185,11 +192,17 @@
     
 //    [self.buffer fillWithMeshTransform:presentationMeshTransform
 //                         positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]];
-     //test
+    //test
 //    [self.buffer fillWithMeshTransform:presentationMeshTransform
 //                         positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]
 //                                render:self.render];
-    [self.mtkView setNeedsDisplay];
+    
+    //test
+//    struct AAPLVertexData *vertexData = [self.buffer vertexDataWithMeshTransform:presentationMeshTransform
+//                                                                   positionScale:[self positionScaleWithDepthNormalization:self.presentationMeshTransform.depthNormalization]];
+//    [self.render refreshVertexData:vertexData];
+    
+//    [self.mtkView setNeedsDisplay];
 }
 
 - (void)setLightDirection:(MLPoint3D)lightDirection

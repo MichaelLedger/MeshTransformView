@@ -12,12 +12,19 @@ Implementation of the renderer class that performs Metal setup and per-frame ren
 #import "AAPLMeshData.h"
 #import "AAPLMathUtilities.h"
 #import "AAPLShaderTypes.h"
+#import "MLMeshBuffer.h"
 
 static const MTLPixelFormat AAPLDepthFormat = MTLPixelFormatDepth32Float;
 static const MTLPixelFormat AAPLColorFormat = MTLPixelFormatBGRA8Unorm_sRGB;
 
 // The maximum number of command buffers in flight.
 static const NSUInteger AAPLMaxBuffersInFlight = 3;
+
+@interface AAPLMetalRenderer()
+
+@property (nonatomic, strong) AAPLMeshData *meshData;
+
+@end
 
 /// Main class that performs the rendering.
 @implementation AAPLMetalRenderer
@@ -64,10 +71,14 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
 /// Initialize the renderer with the MetalKit view that references the Metal device you render with.
 /// You also use the MetalKit view to set the pixel format and other properties of the drawable.
 - (nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)mtkView
+                                  meshBuffer:(nonnull MLMeshBuffer *)meshBuffer
+                               meshTransform:(nonnull MLMeshTransform *)transform
+                               positionScale:(simd_float3)positionScale
 {
     self = [super init];
     if(self)
     {
+        _meshBuffer = meshBuffer;
         _device = mtkView.device;
         _inFlightSemaphore = dispatch_semaphore_create(AAPLMaxBuffersInFlight);
         _commandQueue = [_device newCommandQueue];
@@ -100,7 +111,7 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
             _dynamicDataBuffers[i].label = [NSString stringWithFormat:@"PerFrameDataBuffer%lu", i];
         }
 
-        [self buildTempleObjects];
+        [self buildTempleObjectsWithMeshTransform:transform positionScale:positionScale];
 
         [self buildReflectiveQuadObjects];
     }
@@ -109,7 +120,8 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
 }
 
 /// Create and load assets, including meshes and textures, into Metal objects.
-- (BOOL) buildTempleObjects
+- (BOOL) buildTempleObjectsWithMeshTransform:(nonnull MLMeshTransform *)transform
+                               positionScale:(simd_float3)positionScale
 {
     NSError *error;
     
@@ -124,6 +136,8 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
     AAPLMeshData *meshData = [[AAPLMeshData alloc] initWithURL:modelFileURL error:&error];
 
     NSAssert(meshData, @"Could not load mesh from model file (%@), error: %@.", modelFileURL.absoluteString, error);
+    
+    _meshData = meshData;
 
     // Extract the vertex data, reconfigure the layout for the vertex shader, and place the data into
     // a Metal buffer.
@@ -151,7 +165,9 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
         AAPLVertexGenericData *genericsArray = (AAPLVertexGenericData *)_templeVertexGenerics.contents;
 
         // Load mesh vertex data into Metal buffers.
-        struct AAPLVertexData *vertexData = meshData.vertexData;
+//        struct AAPLVertexData *vertexData = meshData.vertexData;
+        //test
+        struct AAPLVertexData *vertexData = [self.meshBuffer vertexDataWithMeshTransform:transform positionScale:positionScale];
 
         for(unsigned long vertex = 0; vertex < meshData.vertexCount; vertex++)
         {
@@ -274,6 +290,23 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
     }
 
     return YES;
+}
+
+- (void)refreshVertexData:(struct AAPLVertexData *)vertexData {
+    vector_float3 *positionsArray = (vector_float3 *)_templeVertexPositions.contents;
+    AAPLVertexGenericData *genericsArray = (AAPLVertexGenericData *)_templeVertexGenerics.contents;
+
+    // Load mesh vertex data into Metal buffers.
+//        struct AAPLVertexData *vertexData = meshData.vertexData;
+
+    for(unsigned long vertex = 0; vertex < self.meshData.vertexCount; vertex++)
+    {
+        positionsArray[vertex] = vertexData[vertex].position;
+        genericsArray[vertex].texcoord = vertexData[vertex].texcoord;
+        genericsArray[vertex].normal.x = vertexData[vertex].normal.x;
+        genericsArray[vertex].normal.y = vertexData[vertex].normal.y;
+        genericsArray[vertex].normal.z = vertexData[vertex].normal.z;
+    }
 }
 
 - (void) buildReflectiveQuadObjects
@@ -497,15 +530,15 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
                                   atIndex:AAPLBufferIndexMVPMatrix];
             
             //test
-//            [renderEncoder setFragmentTexture:_texture
-//                                      atIndex:AAPLTextureIndexBaseColor];
+            [renderEncoder setFragmentTexture:_texture
+                                      atIndex:AAPLTextureIndexBaseColor];
 
             for(NSUInteger index = 0; index < _templeIndexBuffers.count; index++)
             {
                 // Set any textures read or sampled from the render pipeline.
-                [renderEncoder setFragmentTexture:_templeTextures[index]
-                                          atIndex:AAPLTextureIndexBaseColor];
-    
+//                [renderEncoder setFragmentTexture:_templeTextures[index]
+//                                          atIndex:AAPLTextureIndexBaseColor];
+//
                 NSUInteger indexCount = _templeIndexBuffers[index].length / sizeof(uint32_t);
     
                 // Draw the submesh.
@@ -573,6 +606,10 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
             [renderEncoder setVertexBytes:&_templeCameraMVPMatrix
                                    length:sizeof(_templeCameraMVPMatrix)
                                   atIndex:AAPLBufferIndexMVPMatrix];
+            
+            //test
+//            [renderEncoder setFragmentTexture:_texture
+//                                      atIndex:AAPLTextureIndexBaseColor];
 
             for(NSUInteger index = 0; index < _templeIndexBuffers.count; index++)
             {
@@ -602,8 +639,12 @@ static const NSUInteger AAPLMaxBuffersInFlight = 3;
                                     offset:0
                                    atIndex:AAPLBufferIndexMeshPositions];
 
-            [renderEncoder setFragmentTexture:_reflectionColorTexture
+            //test
+            [renderEncoder setFragmentTexture:_texture
                                       atIndex:AAPLTextureIndexBaseColor];
+            
+//            [renderEncoder setFragmentTexture:_reflectionColorTexture
+//                                      atIndex:AAPLTextureIndexBaseColor];
 
             [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle
                               vertexStart:0

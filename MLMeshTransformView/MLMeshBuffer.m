@@ -172,7 +172,9 @@
 }
 
 #pragma mark - Metal
-- (void)fillWithMeshTransform:(MLMeshTransform *)transform positionScale:(simd_float3)positionScale render:(AAPLMetalRenderer *)render {
+- (void)fillWithMeshTransform:(MLMeshTransform *)transform
+                positionScale:(simd_float3)positionScale
+                       render:(AAPLMetalRenderer *)render {
     _transform = transform;
     _positionScale = positionScale;
     
@@ -305,6 +307,167 @@
     
     
     _indiciesCount = (MTsizei)indexCount;
+}
+
+/*
+ struct AAPLVertexData
+ {
+     vector_float3 position;
+     vector_float3 normal;
+     vector_float2 texcoord;
+ };
+
+ typedef struct BCVertex {
+     GLKVector3 position;
+     GLKVector3 normal;
+     GLKVector2 uv;
+ } BCVertex;
+ */
+- (struct AAPLVertexData *)vertexDataWithMeshTransform:(MLMeshTransform *)transform
+                                         positionScale:(simd_float3)positionScale {
+//    struct AAPLVertexData *vertex;
+    CFMutableArrayRef arrayRef = CFArrayCreateMutable(kCFAllocatorDefault, 0, NULL);
+    struct AAPLVertexData *vertexData = (struct AAPLVertexData *)arrayRef;
+    
+    _transform = transform;
+    _positionScale = positionScale;
+    
+    const int IndexesPerFace = 6;
+    
+    NSUInteger faceCount = transform.faceCount;
+    NSUInteger vertexCount = transform.vertexCount;
+    NSUInteger indexCount = faceCount * IndexesPerFace;
+    
+    // Extract the vertex data, reconfigure the layout for the vertex shader, and place the data into
+    // a Metal buffer.
+    {
+        // In Metal, there's no equivalent to a vertex array object. Instead, you define the layout of the
+        // vertices with a render pipeline state object.
+        // In this case, you create a vertex descriptor that defines the vertex layout which you set in
+        // the render pipeline state object for the temple model. See `mtlVertexDescriptor` below for more
+        // information.
+
+        // Create Metal buffers to store the vertex data (i.e. positions, texture coordinates, and normals).
+//        NSUInteger positionElementSize = sizeof(vector_float3);
+//        NSUInteger positionDataSize    = positionElementSize * vertexCount;
+
+//        NSUInteger genericElementSize = sizeof(AAPLVertexGenericData);
+//        NSUInteger genericsDataSize   = genericElementSize * vertexCount;
+//
+//        render.templeVertexPositions = [render.device newBufferWithLength:positionDataSize
+//                                                      options:MTLResourceStorageModeShared];
+//
+//        render.templeVertexGenerics = [render.device newBufferWithLength:genericsDataSize
+//                                                     options:MTLResourceStorageModeShared];
+
+//        vector_float3 *positionsArray = (vector_float3 *)render.templeVertexPositions.contents;
+//        AAPLVertexGenericData *genericsArray = (AAPLVertexGenericData *)render.templeVertexGenerics.contents;
+        
+//        MLVertex *vertexData = NULL;
+//        MTuint *indexData = NULL;
+//        CFMutableArrayRef arrayRef = CFArrayCreateMutable(kCFAllocatorDefault, 0, NULL);
+//        MLVertex *vertexData = (MLVertex *)arrayRef;
+        for (int i = 0; i < vertexCount; i++) {
+            MLMeshVertex meshVertex = [transform vertexAtIndex:i];
+            CGPoint uv = meshVertex.from;
+
+            MLVertex vertex;
+            vertex.position = simd_make_float3(meshVertex.to.x, meshVertex.to.y, meshVertex.to.z);
+            vertex.uv = simd_make_float2(uv.x, 1.0 - uv.y);
+            vertex.normal = simd_make_float3(0.0f, 0.0f, 0.0f);
+
+            struct AAPLVertexData vertexInnerData;
+            vertexInnerData.position = vertex.position;
+            vertexInnerData.normal = vertex.normal;
+            vertexInnerData.texcoord = vertex.uv;
+            vertexData[i] = vertexInnerData;
+            
+//            positionsArray[i] = vertex.position;
+//            genericsArray[i].texcoord = vertex.uv;
+//            genericsArray[i].normal.x = vertex.normal.x;
+//            genericsArray[i].normal.y = vertex.normal.y;
+//            genericsArray[i].normal.z = vertex.normal.z;
+        }
+        
+        for (int i = 0; i < faceCount; i++) {
+            MLMeshFace face = [transform faceAtIndex:i];
+            simd_float3 weightedFaceNormal = simd_make_float3(0.0f, 0.0f, 0.0f);
+            
+            // CAMeshTransform seems to be using the following order
+            const int Winding[2][3] = {
+                {0, 1, 2},
+                {2, 3, 0}
+            };
+            
+            simd_float3 vertices[4];
+            
+            for (int j = 0; j < 4; j++) {
+                unsigned int faceIndex = face.indices[j];
+                if (faceIndex >= vertexCount) {
+                    NSLog(@"Vertex index %u in face %d is out of bounds!", faceIndex, i);
+                    return nil;
+                }
+                
+                vertices[j] = simd_float3_multiply(vertexData[faceIndex].position, positionScale);
+            }
+            
+            for (int triangle = 0; triangle < 2; triangle++) {
+                
+//                int aIndex = face.indices[Winding[triangle][0]];
+//                int bIndex = face.indices[Winding[triangle][1]];
+//                int cIndex = face.indices[Winding[triangle][2]];
+//
+//                indexData[IndexesPerFace * i + triangle * 3 + 0] = aIndex;
+//                indexData[IndexesPerFace * i + triangle * 3 + 1] = bIndex;
+//                indexData[IndexesPerFace * i + triangle * 3 + 2] = cIndex;
+                
+                simd_float3 a = vertices[Winding[triangle][0]];
+                simd_float3 b = vertices[Winding[triangle][1]];
+                simd_float3 c = vertices[Winding[triangle][2]];
+                
+                simd_float3 ab = simd_float3_subtract(a, b);
+                simd_float3 cb = simd_float3_subtract(c, b);
+                
+                simd_float3 weightedNormal = simd_float3_cross_product(ab, cb);
+
+                weightedFaceNormal = simd_float3_add(weightedFaceNormal, weightedNormal);
+            }
+            
+            // accumulate weighted normal over all faces
+            
+            for (int i = 0; i < 4; i++) {
+                int vertexIndex = face.indices[i];
+                simd_float3 normal = simd_make_float3(vertexData[vertexIndex].normal.x, vertexData[vertexIndex].normal.y, vertexData[vertexIndex].normal.z);
+                simd_float3 rs = simd_float3_add(normal, weightedFaceNormal);
+//                packed_float3 pf = {rs.x, rs.y, rs.z};
+                vertexData[vertexIndex].normal = rs;
+            }
+        }
+        
+        for (int i = 0; i < vertexCount; i++) {
+
+//            packed_float3 normal = genericsArray[i].normal;
+//            simd_float3 transformed = simd_float3_make(normal.x, normal.y, normal.z);
+            float length = simd_float3_length(vertexData[i].normal);
+
+            if (length > 0.0) {
+                simd_float3 rs = simd_float3_multiply_scalar(vertexData[i].normal, 1.0/length);
+//                packed_float3 pf = {rs.x, rs.y, rs.z};
+                vertexData[i].normal = rs;
+            }
+        }
+    }
+    
+//    [self resizeBuffersToVertexCount:vertexCount indexCount:indexCount];
+    
+//    [self fillBuffersWithBlock:^(MLVertex *vertexData, MTuint *indexData) {
+//
+//    }];
+    
+    
+    _indiciesCount = (MTsizei)indexCount;
+    
+    return vertexData;
 }
 
 #pragma mark - Resizing

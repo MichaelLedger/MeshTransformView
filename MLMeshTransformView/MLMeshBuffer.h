@@ -11,6 +11,7 @@
 #import "mtktypes.h"
 #import "MTKVector3.h"
 #import "AAPLMetalRenderer.h"
+#import "AAPLMeshData.h"
 @import MetalKit;
 
 typedef struct MLVertex {
@@ -45,6 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fillWithMeshTransform:(MLMeshTransform *)transform
                 positionScale:(simd_float3)positionScale
                        render:(AAPLMetalRenderer *)render;
+
+- (struct AAPLVertexData *)vertexDataWithMeshTransform:(MLMeshTransform *)transform
+                                         positionScale:(simd_float3)positionScale;
 
 @end
 

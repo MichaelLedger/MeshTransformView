@@ -6,6 +6,8 @@ Header for the renderer class that performs Metal setup and per-frame rendering.
 */
 
 #import <MetalKit/MetalKit.h>
+#import "AAPLMeshData.h"
+@class MLMeshBuffer, MLMeshTransform;
 
 /// Platform-independent renderer class.
 @interface AAPLMetalRenderer : NSObject<MTKViewDelegate>
@@ -19,6 +21,13 @@ Header for the renderer class that performs Metal setup and per-frame rendering.
 // 纹理
 @property (nonatomic, strong, nonnull) id<MTLTexture>                 texture;
 
-- (nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)mtkView;
+@property (nonatomic, strong, nonnull) MLMeshBuffer *meshBuffer;
+
+- (nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)mtkView
+                                  meshBuffer:(nonnull MLMeshBuffer *)meshBuffer
+                               meshTransform:(nonnull MLMeshTransform *)transform
+                               positionScale:(simd_float3)positionScale;
+
+- (void)refreshVertexData:(nonnull struct AAPLVertexData *)vertexData;
 
 @end
